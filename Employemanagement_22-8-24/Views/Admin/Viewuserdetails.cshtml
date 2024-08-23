@@ -83,7 +83,10 @@
             <dd class="col-sm-9">@Model.WorkPhoneNumber</dd>
         </dl>
 
-        <a asp-controller="Admin" asp-action="EditUser" asp-route-id="@Model.UserId" class="btn btn-primary">Edit</a>
+        <form action="@Url.Action("EditUser", "Admin")" method="get" style="display:inline;">
+            <input type="hidden" name="userId" value="@Model.UserId" />
+            <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+        </form>
         <a asp-controller="Admin" asp-action="ViewUsers" class="btn btn-secondary">Back to User List</a>
     </div>
 </div>

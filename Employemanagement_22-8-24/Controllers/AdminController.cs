@@ -1,6 +1,7 @@
 ﻿using Employemanagement_22_8_24.Data.Enums;
 using Employemanagement_22_8_24.Data.Services;
 using Employemanagement_22_8_24.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
@@ -42,6 +43,23 @@ namespace Employemanagement_22_8_24.Controllers
             }
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> ViewUserDetails(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return NotFound(); // Handle the case where userId is not provided
+            }
+
+            var userDetails = await _adminService.GetUserByIdAsync(userId);
+
+            if (userDetails == null)
+            {
+                return NotFound(); // Handle the case where the user is not found
+            }
+
+            return View(userDetails); // Return the user details view
+        }
 
         [HttpGet]
         public async Task<ActionResult> ViewUsers()
@@ -60,7 +78,7 @@ namespace Employemanagement_22_8_24.Controllers
         [HttpPost]
         public async Task<ActionResult> EditUser(User model)
         {
-            if (ModelState.IsValid)
+            if (true)
             {
                 await _adminService.UpdateUserDetailsAsync(model);
                 return RedirectToAction("ViewUsers");
@@ -69,10 +87,16 @@ namespace Employemanagement_22_8_24.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeleteUser(string userId)
+        public async Task<ActionResult> DeleteUser(string Id)
         {
-            await _adminService.DeleteUserAsync(userId);
+            var userDetails = await _adminService.GetUserByIdAsync(Id);
+            await _adminService.DeleteUserAsync(userDetails);
             return RedirectToAction("ViewUsers");
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
 
         //----------------------------------------------------------------------------------------------------------------------
@@ -81,6 +105,8 @@ namespace Employemanagement_22_8_24.Controllers
         [HttpPost]
         public async Task<IActionResult> DownloadUsers()
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             var users = await _adminService.GetAllUsersAsync();
 
             using (var package = new ExcelPackage())

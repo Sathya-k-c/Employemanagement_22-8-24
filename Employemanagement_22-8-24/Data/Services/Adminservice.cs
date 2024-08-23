@@ -68,14 +68,12 @@ namespace Employemanagement_22_8_24.Data.Services
 
         }
 
-        public async Task DeleteUserAsync(string userId)
+        public async Task DeleteUserAsync(User user)
         {
-            var user = await _context.Users.FindAsync(userId);
-            if (user != null)
-            {
+            
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
-            }
+            
 
         }
 
@@ -143,24 +141,27 @@ namespace Employemanagement_22_8_24.Data.Services
 
         private async Task SendEmailAsync(string email, string tempPassword)
         {
+
             using (var smtpClient = new SmtpClient("smtp.gmail.com", 587))
             {
-                smtpClient.Credentials = new NetworkCredential("kcsathya03@gmail.com", "hithisissathya");
+                // Gmail credentials
+                smtpClient.Credentials = new NetworkCredential("erennnyeager.aot@gmail.com", "xfms idvl wzqx owme");
                 smtpClient.EnableSsl = true;
 
                 var mailMessage = new MailMessage
                 {
-                    From = new MailAddress("kcsathya03@gmail.com"),
-                    Subject = "Temprory password",
+                    From = new MailAddress("erennnyeager.aot@gmail.com"),
+                    Subject = "Temporary Password",
                     Body = tempPassword,
                     IsBodyHtml = true,
                 };
                 mailMessage.To.Add(email);
 
-                smtpClient.Send(mailMessage);
+                await smtpClient.SendMailAsync(mailMessage);
             }
 
-            
+
+
         }
     }
 }

@@ -4,6 +4,7 @@ using Employemanagement_22_8_24.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employemanagement_22_8_24.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240823070424_s1")]
+    partial class s1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,7 +265,7 @@ namespace Employemanagement_22_8_24.Migrations
                             PersonalPhoneNumber = "1234567890",
                             ResidentialAddress = "123 Admin St.",
                             Role = "Admin",
-                            StartDate = new DateTime(2024, 8, 23, 17, 44, 20, 93, DateTimeKind.Local).AddTicks(6529),
+                            StartDate = new DateTime(2024, 8, 23, 12, 34, 23, 956, DateTimeKind.Local).AddTicks(5419),
                             State = "Admin State",
                             TotalEarnings = 127000m,
                             WorkEmail = "admin.work@example.com",

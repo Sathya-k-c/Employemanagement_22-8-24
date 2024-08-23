@@ -6,7 +6,7 @@
 
 <h2>Edit User</h2>
 
-<form asp-action="UpdateUser" method="post">
+<form asp-action="EditUser" method="post">
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
         <input asp-for="Name" class="form-control" />
@@ -31,21 +31,34 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="BloodGroup" class="control-label"></label>
+        <select asp-for="BloodGroup" class="form-control">
+            <option value="">Select Blood Group</option>
+            <option value="Unknown">Unknown</option>
+            <option value="A_Positive">A_Positive</option>
+            <option value="A_Negative">A_Negative</option>
+            <option value="B_Positive">B_Positive</option>
+            <option value="B_Negative">B_Negative</option>
+            <option value="AB_Positive">AB_Positive</option>
+            <option value="AB_Negative">AB_Negative</option>
+            <option value="O_Positive">O_Positive</option>
+            <option value="O_Negative">O_Negative</option>
+        </select>
+        <span asp-validation-for="BloodGroup" class="text-danger"></span>
+        
+    </div>
+
+    <div class="form-group">
         <label asp-for="MaritalStatus" class="control-label"></label>
         <select asp-for="MaritalStatus" class="form-control">
             <option value="">Select Marital Status</option>
-            <option value="Single">Single</option>
+            <option value="">Single</option>
             <option value="Married">Married</option>
             <option value="Divorced">Divorced</option>
             <option value="Widowed">Widowed</option>
         </select>
-        <span asp-validation-for="MaritalStatus" class="text-danger"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="BloodGroup" class="control-label"></label>
-        <input asp-for="BloodGroup" class="form-control" />
-        <span asp-validation-for="BloodGroup" class="text-danger"></span>
+        <span asp-validation-for="MaritalStatus" class="text-danger"></span>
     </div>
 
     <div class="form-group">

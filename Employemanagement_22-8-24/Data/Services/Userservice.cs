@@ -52,11 +52,9 @@ namespace Employemanagement_22_8_24.Data.Services
         }
 
 
-        public async Task<User> GetUserDetailsAsync(string userId)
+        public  User GetUserDetailsAsync(string userId)
         {
-            return await _context.Users
-                .Where(u => u.UserId == userId)
-                .FirstOrDefaultAsync();
+            return _context.Users.Find(userId);
         }
         // -------------------------------------------------------------------------------------------------------
 

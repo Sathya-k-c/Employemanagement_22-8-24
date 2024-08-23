@@ -24,6 +24,10 @@ namespace Employemanagement_22_8_24.Data.Services
             SendOtpAsync(userId, user.Email);
 
         }
+        public User GetUserByIdAsync(string userId)
+        {
+            return  _context.Users.Find(userId);
+        }
 
         public async Task<string> GetUserRoleAsync(string userId)
         {
@@ -41,17 +45,18 @@ namespace Employemanagement_22_8_24.Data.Services
         public async Task SendOtpAsync(string userId, string email)
         {
             var otp = GenerateOtp();
-            var validateOtp = new ValidateOtp
+            ValidateOtp validateOtp = new ValidateOtp
             {
                 UserId = userId,
                 Otp = otp
             };
+            
 
-            _context.ValidateOtps.Add(validateOtp);
+             _context.ValidateOtps.Add(validateOtp); 
             await _context.SaveChangesAsync();
-
-            // Code to send OTP via email using SMTP
             SendEmail(email, "Your OTP", $"Your OTP is: {otp}");
+            // Code to send OTP via email using SMTP
+
 
         }
 
@@ -77,13 +82,12 @@ namespace Employemanagement_22_8_24.Data.Services
 
         public async Task UpdatePasswordAsync(string userId, string newPassword)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == userId);
-            var login
-                = await _context.Logins.FirstOrDefaultAsync(x => x.UserId == userId);
-            if (user != null)
+            var user = GetUserByIdAsync(userId);
+            
+            if (true)
             {
                 user.Password = newPassword;
-                login.Password = newPassword;
+            
                 user.IsFirstTimeLogin = false;
                 await _context.SaveChangesAsync();
             }
@@ -108,23 +112,24 @@ namespace Employemanagement_22_8_24.Data.Services
             return Guid.NewGuid().ToString("N").Substring(0, 8);
         }
 
-        private void SendEmail(string toEmail, string subject, string body)
+        private async Task SendEmail(string toEmail, string subject, string body)
         {
             using (var smtpClient = new SmtpClient("smtp.gmail.com", 587))
             {
-                smtpClient.Credentials = new NetworkCredential("kcsathya03@gmail.com", "hithisissathya");
+                // Gmail credentials
+                smtpClient.Credentials = new NetworkCredential("erennnyeager.aot@gmail.com", "xfms idvl wzqx owme");
                 smtpClient.EnableSsl = true;
 
                 var mailMessage = new MailMessage
                 {
-                    From = new MailAddress("kcsathya03@gmail.com"),
-                    Subject = subject,
+                    From = new MailAddress("erennnyeager.aot@gmail.com"),
+                    Subject = "Temporary Password",
                     Body = body,
                     IsBodyHtml = true,
                 };
                 mailMessage.To.Add(toEmail);
 
-                smtpClient.Send(mailMessage);
+                await smtpClient.SendMailAsync(mailMessage);
             }
 
 

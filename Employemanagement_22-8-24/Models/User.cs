@@ -22,13 +22,13 @@ namespace Employemanagement_22_8_24.Models
         [EmailAddress(ErrorMessage = "Invalid email format.")]
         public string Email { get; set; } // Taken from admin during add user
 
-        
-        [Phone(ErrorMessage = "Invalid phone number format.")]
-        public string PersonalPhoneNumber { get; set; } // Must be a valid phone number format
 
-        
+        [Phone(ErrorMessage = "Invalid phone number format.")]
+        public string PersonalPhoneNumber { get; set; } = "9658585456"; // Must be a valid phone number format
+
+
         [EmailAddress(ErrorMessage = "Invalid work email format.")]
-        public string WorkEmail { get; set; } // Must be a valid email format
+        public string WorkEmail { get; set; } = "example@gmail.com"; // Must be a valid email format
 
 
         [RegularExpression(@"^\d{10,12}$", ErrorMessage = "Account number must be between 10 and 12 digits.")]

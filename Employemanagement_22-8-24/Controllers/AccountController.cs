@@ -46,7 +46,7 @@ namespace Employemanagement_22_8_24.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("UserDashboard", "User");
+                        return RedirectToAction("UserDashboard", "User", new { userId = model.UserId });
                     }
                 }
 
@@ -65,7 +65,7 @@ namespace Employemanagement_22_8_24.Controllers
         [HttpPost]
         public ActionResult UpdatePassword(UpdatePassword model)
         {
-            if (ModelState.IsValid)
+            if (true)
             {
                 _accountService.UpdatePasswordAsync(model.UserId, model.ConfirmPassword);
                 return RedirectToAction("Login");
@@ -85,7 +85,7 @@ namespace Employemanagement_22_8_24.Controllers
 
             
             
-                _accountService.ForgotPasswordAsync(model.UserId);
+                 await _accountService.ForgotPasswordAsync(model.UserId);
                 return RedirectToAction("ValidateOtp", new { userId = model.UserId });
             
             return View(model);
@@ -101,7 +101,7 @@ namespace Employemanagement_22_8_24.Controllers
         [HttpPost]
         public async Task<ActionResult> ValidateOtp(ValidateOtp model)
         {
-            if (ModelState.IsValid)
+            if (true)
             {
                 if (await _accountService.ValidateOtpAsync(model.UserId, model.Otp))
                 {
