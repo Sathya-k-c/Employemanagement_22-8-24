@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Employemanagement_22_8_24.Models.User>
+
+@{
+    ViewBag.Title = "View Users";
+}
+
+<h2>Users</h2>
+
+<div class="mb-3">
+    <a asp-controller="Admin" asp-action="DownloadUsersExcel" class="btn btn-success">Download as Excel</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="EditUser" asp-route-id="@user.UserId" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.UserId" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                    <a asp-controller="Admin" asp-action="ViewUserDetails" asp-route-id="@user.UserId" class="btn btn-info btn-sm">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Admin" asp-action="AdminDashboard" class="btn btn-secondary">Back to Dashboard</a>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

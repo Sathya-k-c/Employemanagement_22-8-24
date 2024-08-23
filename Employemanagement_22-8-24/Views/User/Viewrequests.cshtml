@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Employemanagement_22_8_24.Models.Request>
+
+@{
+    ViewData["Title"] = "View Requests";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Request ID</th>
+            <th>Edit Request</th>
+            <th>Request Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.RequestId</td>
+                <td>@request.EditRequest</td>
+                <td>
+                    @if (request.RequestDate != null)
+                    {
+                        @request.RequestDate.ToString("yyyy-MM-dd")
+
+                    }
+                    else
+                    {
+                        <span>No Date</span>
+                    }
+                </td>
+                <td>@request.isprocessed</td>
+                <td>
+                    <form asp-action="DeleteRequest" asp-route-requestId="@request.RequestId" method="post" onsubmit="return confirm('Are you sure you want to delete this request?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="User" asp-action="AddRequest" class="btn btn-primary">Add New Request</a>

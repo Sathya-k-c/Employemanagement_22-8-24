@@ -1,0 +1,29 @@
+﻿@model Employemanagement_22_8_24.Models.ValidateOtp
+
+@{
+    ViewBag.Title = "Validate OTP";
+}
+
+<h2>Validate OTP</h2>
+
+<form asp-action="ValidateOtp" method="post">
+    <div class="form-group">
+        <label asp-for="UserId"></label>
+        <input asp-for="UserId" class="form-control" />
+        <span asp-validation-for="UserId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Otp"></label>
+        <input asp-for="Otp" class="form-control" />
+        <span asp-validation-for="Otp" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Validate OTP</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

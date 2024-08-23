@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Employemanagement_22_8_24.Models.Request>
+
+@{
+    ViewBag.Title = "Request Management";
+    var requestStatus = ViewData["RequestStatus"] as string ?? "Pending";
+}
+
+<h2>Request Management</h2>
+
+<div class="btn-group mb-3" role="group">
+    <a asp-controller="Admin" asp-action="RequestManagement" asp-route-status="Pending" class="btn btn-primary @(requestStatus == "Pending" ? "active" : "")">Pending</a>
+    <a asp-controller="Admin" asp-action="RequestManagement" asp-route-status="Accepted" class="btn btn-success @(requestStatus == "Accepted" ? "active" : "")">Accepted</a>
+    <a asp-controller="Admin" asp-action="RequestManagement" asp-route-status="Rejected" class="btn btn-danger @(requestStatus == "Rejected" ? "active" : "")">Rejected</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Request ID</th>
+            <th>User ID</th>
+            <th>Edit Request</th>
+            <th>Request Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.RequestId</td>
+                <td>@request.UserId</td>
+                <td>@request.EditRequest</td>
+                <td>@request.RequestDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>@request.isprocessed</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Admin" asp-action="AdminDashboard" class="btn btn-secondary">Back to Dashboard</a>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

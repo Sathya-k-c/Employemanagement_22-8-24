@@ -1,0 +1,29 @@
+﻿@model Employemanagement_22_8_24.Models.Request
+
+@{
+    ViewBag.Title = "Add Request";
+}
+
+<h2>Add Request</h2>
+
+<form asp-action="AddRequest" method="post">
+    <div class="form-group">
+        <label asp-for="EditRequest" class="control-label"></label>
+        <textarea asp-for="EditRequest" class="form-control" rows="4" placeholder="Enter your request here..."></textarea>
+        <span asp-validation-for="EditRequest" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+    </div>
+</form>
+
+<a asp-controller="User" asp-action="UserDashboard" class="btn btn-secondary">Back to Dashboard</a>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
