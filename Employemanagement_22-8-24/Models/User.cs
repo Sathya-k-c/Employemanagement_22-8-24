@@ -77,7 +77,6 @@ namespace Employemanagement_22_8_24.Models
         public string EmploymentType { get; set; } = "Unknown"; // Default value: "Unknown"
 
         public string WorkPhoneNumber { get; set; } = "0000000000"; // Default value: "0000000000"
-        public virtual ICollection<Request> Requests { get; set; } = new HashSet<Request>();
-
+       
     }
 }

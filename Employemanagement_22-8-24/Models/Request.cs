@@ -6,13 +6,14 @@ namespace Employemanagement_22_8_24.Models
 {
     public class Request
     {
-        [Key]
-        public int RequestId { get; set; }
+        [Key] // This attribute can be used to specify that RequestId is the primary key
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Ensures SQL Server auto-generates the value
+        public int RequestId { get; set; } // Assuming it's an int type
 
-        
+
         public string UserId { get; set; }
 
-        [Required(ErrorMessage = "Edit request is required.")]
+       
         
         public string EditRequest { get; set; }
 
@@ -22,8 +23,7 @@ namespace Employemanagement_22_8_24.Models
 
 
         public Isprocessed isprocessed{ get; set; }
-        [ForeignKey(nameof(UserId))]    
-        public virtual User User { get; set; }
 
+      
     }
 }

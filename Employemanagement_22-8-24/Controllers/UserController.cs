@@ -78,7 +78,7 @@ namespace Employemanagement_22_8_24.Controllers
 
         // POST: User/AddRequest
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> AddRequest(string editRequest)
         {
             if (ModelState.IsValid)
@@ -94,7 +94,7 @@ namespace Employemanagement_22_8_24.Controllers
                     }
 
                     // Add the request using the service method
-                    await _userService.AddRequestAsync(currentUserId, editRequest);
+                    await  _userService.AddRequestAsync(currentUserId, editRequest);
 
                     // Redirect to the ViewRequests page after successful addition
                     return RedirectToAction(nameof(ViewRequests));

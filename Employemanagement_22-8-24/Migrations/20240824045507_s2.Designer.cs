@@ -4,6 +4,7 @@ using Employemanagement_22_8_24.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employemanagement_22_8_24.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240824045507_s2")]
+    partial class s2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,6 +81,8 @@ namespace Employemanagement_22_8_24.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("RequestId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Requests");
                 });
@@ -260,7 +265,7 @@ namespace Employemanagement_22_8_24.Migrations
                             PersonalPhoneNumber = "1234567890",
                             ResidentialAddress = "123 Admin St.",
                             Role = "Admin",
-                            StartDate = new DateTime(2024, 8, 24, 21, 55, 40, 24, DateTimeKind.Local).AddTicks(5656),
+                            StartDate = new DateTime(2024, 8, 24, 10, 25, 6, 943, DateTimeKind.Local).AddTicks(2539),
                             State = "Admin State",
                             TotalEarnings = 127000m,
                             WorkEmail = "admin.work@example.com",
@@ -282,6 +287,22 @@ namespace Employemanagement_22_8_24.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("ValidateOtps");
+                });
+
+            modelBuilder.Entity("Employemanagement_22_8_24.Models.Request", b =>
+                {
+                    b.HasOne("Employemanagement_22_8_24.Models.User", "User")
+                        .WithMany("Requests")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Employemanagement_22_8_24.Models.User", b =>
+                {
+                    b.Navigation("Requests");
                 });
 #pragma warning restore 612, 618
         }

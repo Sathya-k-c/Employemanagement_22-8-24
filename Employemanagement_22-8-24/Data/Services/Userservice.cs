@@ -21,9 +21,9 @@ namespace Employemanagement_22_8_24.Data.Services
             if (string.IsNullOrEmpty(userId)) throw new ArgumentNullException(nameof(userId));
             if (string.IsNullOrEmpty(editRequest)) throw new ArgumentNullException(nameof(editRequest));
 
-            var request = new Request
+            Request request = new Request
             {
-                RequestId = GenerateUniqueRequestId(),
+               
                 UserId = userId,
                 EditRequest = editRequest,
                 RequestDate = DateTime.UtcNow, // Current date and time
@@ -31,7 +31,8 @@ namespace Employemanagement_22_8_24.Data.Services
             };
 
             _context.Requests.Add(request);
-            await _context.SaveChangesAsync();
+            Console.WriteLine(_context.Entry(request).State);
+             _context.SaveChanges();
         }
 
 

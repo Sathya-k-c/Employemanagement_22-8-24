@@ -21,6 +21,7 @@ namespace Employemanagement_22_8_24.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<User>().HasData(new User
             {
                 UserId = "admin123",
@@ -201,12 +202,7 @@ namespace Employemanagement_22_8_24.Data
                     .HasMaxLength(10);
             });
 
-            // Configure User-Request relationship
-            modelBuilder.Entity<Request>()
-                .HasOne(r => r.User)
-                .WithMany(u => u.Requests)
-                .HasForeignKey(r => r.UserId)
-                .OnDelete(DeleteBehavior.Restrict); // Restrict to avoid cascading deletes
+         
         }
     }
 }

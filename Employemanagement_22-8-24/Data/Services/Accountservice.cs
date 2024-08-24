@@ -24,9 +24,9 @@ namespace Employemanagement_22_8_24.Data.Services
             SendOtpAsync(userId, user.Email);
 
         }
-        public User GetUserByIdAsync(string userId)
+        public  User  GetUserByIdAsync(string userId)
         {
-            return  _context.Users.Find(userId);
+            return _context.Users.Find(userId);
         }
 
         public async Task<string> GetUserRoleAsync(string userId)
@@ -80,17 +80,19 @@ namespace Employemanagement_22_8_24.Data.Services
 
         }
 
-        public async Task UpdatePasswordAsync(string userId, string newPassword)
+        public void UpdatePasswordAsync(string userId, string newPassword)
         {
-            var user = GetUserByIdAsync(userId);
-            
+            var user =  GetUserByIdAsync(userId);
+          
             if (true)
             {
                 user.Password = newPassword;
             
                 user.IsFirstTimeLogin = false;
-                await _context.SaveChangesAsync();
+                 _context.SaveChangesAsync();
+
             }
+            
 
         }
 

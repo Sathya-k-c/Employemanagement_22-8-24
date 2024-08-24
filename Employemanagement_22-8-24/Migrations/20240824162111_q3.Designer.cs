@@ -4,6 +4,7 @@ using Employemanagement_22_8_24.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employemanagement_22_8_24.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240824162111_q3")]
+    partial class q3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,6 +68,9 @@ namespace Employemanagement_22_8_24.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
@@ -260,7 +266,7 @@ namespace Employemanagement_22_8_24.Migrations
                             PersonalPhoneNumber = "1234567890",
                             ResidentialAddress = "123 Admin St.",
                             Role = "Admin",
-                            StartDate = new DateTime(2024, 8, 24, 21, 55, 40, 24, DateTimeKind.Local).AddTicks(5656),
+                            StartDate = new DateTime(2024, 8, 24, 21, 51, 11, 4, DateTimeKind.Local).AddTicks(3992),
                             State = "Admin State",
                             TotalEarnings = 127000m,
                             WorkEmail = "admin.work@example.com",

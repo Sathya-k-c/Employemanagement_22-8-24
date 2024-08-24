@@ -4,7 +4,7 @@
     {
         Task<bool> ValidateLoginAsync(string userId, string password);
         Task<bool> IsFirstTimeLoginAsync(string userId);
-        Task UpdatePasswordAsync(string userId, string newPassword);
+        void UpdatePasswordAsync(string userId, string newPassword);
         Task SendTemporaryPasswordAsync(string userId, string email);
         Task SendOtpAsync(string userId, string email);
         Task<bool> ValidateOtpAsync(string userId, string otp);
