@@ -15,7 +15,7 @@ namespace Employemanagement_22_8_24.Data.Services
         {
             _context = context;
         }
-        public readonly ConcurrentDictionary<string, string> _otpStore = new ConcurrentDictionary<string, string>();
+        public static readonly ConcurrentDictionary<string, string> _otpStore = new ConcurrentDictionary<string, string>();
 
 
 
@@ -48,7 +48,7 @@ namespace Employemanagement_22_8_24.Data.Services
         {
             // Generate a new OTP
             var otp = GenerateOtp();
-
+           
             // Store the OTP in the dictionary
             _otpStore.AddOrUpdate(userId, otp, (key, oldValue) => otp);
 

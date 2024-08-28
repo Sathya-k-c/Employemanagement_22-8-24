@@ -18,35 +18,63 @@ namespace Employemanagement_22_8_24.Data.Services
 
         //---------------------------------------------------------------------------------------------------
 
+
+        public async Task CreateUserAsync(User user)
+        {
+            
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddLoginAsync(string userId, string email)
+        {
+            var existingUser = await _context.Users.FindAsync(userId);
+            if (existingUser == null) throw new KeyNotFoundException("User not found.");
+
+            if (existingUser.LoginCreated) throw new InvalidOperationException("Login already created for this user.");
+
+            existingUser.Email = email;
+            existingUser.Password = GenerateTempPassword();
+            existingUser.LoginCreated = true;
+
+            _context.Users.Update(existingUser);
+            await _context.SaveChangesAsync();
+
+            await SendEmailAsync(existingUser.Email, existingUser.Password);
+        }
+
+
+
+
+
+
+        //---------------------------------------------------------------------------------------------------------
+
         // Requests
 
-        public async Task AcceptRequestAsync(Request request)
+        public async Task UpdateRequestAsync(Request request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             var existingRequest = await _context.Requests.FindAsync(request.RequestId);
             if (existingRequest == null) throw new KeyNotFoundException("Request not found.");
 
-            existingRequest.isprocessed = Enums.Isprocessed.Accepted;
+            existingRequest.isprocessed = request.isprocessed;
+            existingRequest.Remarks = request.Remarks; // Update remarks
             _context.Requests.Update(existingRequest);
             await _context.SaveChangesAsync();
         }
 
-        public async Task RejectRequestAsync(Request request)
+        public async Task<Request> GetRequestByIdAsync(int requestId)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
-
-            var existingRequest = await _context.Requests.FindAsync(request.RequestId);
-            if (existingRequest == null) throw new KeyNotFoundException("Request not found.");
-
-            existingRequest.isprocessed = Enums.Isprocessed.Rejected;
-            _context.Requests.Update(existingRequest);
-            await _context.SaveChangesAsync();
+            return await _context.Requests.FindAsync(requestId);
         }
+
         public async Task<List<Request>> GetAllRequestsAsync()
         {
             return await _context.Requests.ToListAsync();
         }
+       
 
         //------------------------------------------------------------------------------------------------------------
 
@@ -116,7 +144,7 @@ namespace Employemanagement_22_8_24.Data.Services
                 existingUser.AccountNumber = user.AccountNumber;
                 existingUser.Designation = user.Designation;
                 existingUser.Department = user.Department;
-                existingUser.StartDate = user.StartDate;
+                existingUser.DateOfJoin = user.DateOfJoin;
                 existingUser.EmploymentType = user.EmploymentType;
                 existingUser.WorkEmail = user.WorkEmail;
                 existingUser.WorkPhoneNumber = user.WorkPhoneNumber;
@@ -163,5 +191,17 @@ namespace Employemanagement_22_8_24.Data.Services
 
 
         }
+
+        // Method to generate the next User ID in the sequence
+        public async Task<string> GenerateUserIdAsync()
+        {
+            var lastUser = await _context.Users.OrderByDescending(u => u.UserId).FirstOrDefaultAsync();
+            if (lastUser == null)
+                return "Q100"; // Starting point if no users exist
+
+            int lastIdNumber = int.Parse(lastUser.UserId.Substring(1));
+            return $"Q{lastIdNumber + 1}";
+        }
+
     }
 }

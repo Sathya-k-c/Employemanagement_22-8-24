@@ -25,16 +25,21 @@ namespace Employemanagement_22_8_24.Controllers
         {
             // Retrieve the current user ID from the session
             string currentUserId = HttpContext.Session.GetString("UserId");
+          
 
             if (string.IsNullOrEmpty(currentUserId))
             {
                 // Handle the case where the user ID is not found in the session
                 return RedirectToAction("Login", "Account"); // Redirect to login page or an appropriate action
             }
+
             try
             {
                 // Use the service to get all requests for the current user
                 var requests = await _userService.GetAllRequestsByUserIdAsync(currentUserId);
+
+                // Set the user ID in ViewData for use in the view
+                ViewData["UserId"] = currentUserId;
 
                 // Return the view with the list of requests
                 return View(requests);
@@ -75,6 +80,7 @@ namespace Employemanagement_22_8_24.Controllers
         {
             // Retrieve the current user ID from the session
             string currentUserId = HttpContext.Session.GetString("UserId");
+            
 
             // Pass the user ID to the view if needed
             ViewData["UserId"] = currentUserId;

@@ -34,7 +34,7 @@ namespace Employemanagement_22_8_24.Data
                 AccountNumber = "123456789012",
                 Name = "Admin User",
                 DateOfBirth = new DateTime(1980, 1, 1),
-                StartDate = DateTime.Now,
+                DateOfJoin = DateTime.Now,
                 Gender = Gender.Male,
                 MaritalStatus = "Single",
                 BloodGroup = Bloodgroup.O_Positive,
@@ -53,6 +53,7 @@ namespace Employemanagement_22_8_24.Data
                 Department = "Management",
                 EmploymentType = "Full-Time",
                 WorkPhoneNumber = "0987654321",
+                LoginCreated =true,
             });
 
             // Configure User entity
@@ -65,15 +66,12 @@ namespace Employemanagement_22_8_24.Data
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Password)
-                    .IsRequired()
                     .HasMaxLength(100);
 
                 entity.Property(e => e.Role)
-                    .IsRequired()
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Email)
-                    .IsRequired()
                     .HasMaxLength(100);
 
                 entity.Property(e => e.PersonalPhoneNumber)

@@ -4,6 +4,7 @@ using Employemanagement_22_8_24.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employemanagement_22_8_24.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240828065159_x5")]
+    partial class x5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,10 +68,6 @@ namespace Employemanagement_22_8_24.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Remarks")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
@@ -251,7 +250,7 @@ namespace Employemanagement_22_8_24.Migrations
                             BloodGroup = 7,
                             ConveyanceAllowance = 5000m,
                             DateOfBirth = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfJoin = new DateTime(2024, 8, 28, 14, 32, 11, 557, DateTimeKind.Local).AddTicks(3764),
+                            DateOfJoin = new DateTime(2024, 8, 28, 12, 21, 58, 602, DateTimeKind.Local).AddTicks(3119),
                             Department = "Management",
                             Designation = "Administrator",
                             District = "Admin District",

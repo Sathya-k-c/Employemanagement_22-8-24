@@ -4,6 +4,7 @@ using Employemanagement_22_8_24.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employemanagement_22_8_24.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240828061748_x1")]
+    partial class x1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,10 +69,6 @@ namespace Employemanagement_22_8_24.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("Remarks")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
 
@@ -82,6 +81,8 @@ namespace Employemanagement_22_8_24.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("RequestId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Requests");
                 });
@@ -138,9 +139,6 @@ namespace Employemanagement_22_8_24.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateOfJoin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Department")
@@ -218,6 +216,9 @@ namespace Employemanagement_22_8_24.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -251,7 +252,6 @@ namespace Employemanagement_22_8_24.Migrations
                             BloodGroup = 7,
                             ConveyanceAllowance = 5000m,
                             DateOfBirth = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfJoin = new DateTime(2024, 8, 28, 14, 32, 11, 557, DateTimeKind.Local).AddTicks(3764),
                             Department = "Management",
                             Designation = "Administrator",
                             District = "Admin District",
@@ -269,6 +269,7 @@ namespace Employemanagement_22_8_24.Migrations
                             PersonalPhoneNumber = "1234567890",
                             ResidentialAddress = "123 Admin St.",
                             Role = "Admin",
+                            StartDate = new DateTime(2024, 8, 28, 11, 47, 47, 938, DateTimeKind.Local).AddTicks(5825),
                             State = "Admin State",
                             TotalEarnings = 127000m,
                             WorkEmail = "admin.work@example.com",
@@ -290,6 +291,20 @@ namespace Employemanagement_22_8_24.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("ValidateOtps");
+                });
+
+            modelBuilder.Entity("Employemanagement_22_8_24.Models.Request", b =>
+                {
+                    b.HasOne("Employemanagement_22_8_24.Models.User", null)
+                        .WithMany("Requests")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Employemanagement_22_8_24.Models.User", b =>
+                {
+                    b.Navigation("Requests");
                 });
 #pragma warning restore 612, 618
         }

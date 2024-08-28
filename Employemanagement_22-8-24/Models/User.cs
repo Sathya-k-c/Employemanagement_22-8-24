@@ -7,77 +7,73 @@ namespace Employemanagement_22_8_24.Models
     {
         [Key]
         [Required(ErrorMessage = "User ID is required.")]
-        public string UserId { get; set; } // Taken from admin during add user
+        public string UserId { get; set; } // Auto-generated, non-editable
 
-        [Required(ErrorMessage = "Password is required.")]
+
+        public string Password { get; set; } = "temp";// Set during login creation
+
         
-        public string Password { get; set; } // Password must meet certain complexity requirements
+        public string Role { get; set; } = "User"; // Default Role
 
-        [Required(ErrorMessage = "Role is required.")]
-        public string Role { get; set; } // Taken from admin during add user
+        public bool IsFirstTimeLogin { get; set; } = true;
 
-        public bool IsFirstTimeLogin { get; set; } = true; // Default value is true for first-time login, no validation required
-
-        [Required(ErrorMessage = "Email is required.")]
 
         [EmailAddress(ErrorMessage = "Invalid email format.")]
-        public string Email { get; set; } // Taken from admin during add user
-
+        public string Email { get; set; } = "example@gmail.com"; // Set during login creation
 
         [Phone(ErrorMessage = "Invalid phone number format.")]
-        public string PersonalPhoneNumber { get; set; } = "9658585456"; // Must be a valid phone number format
-
+        public string PersonalPhoneNumber { get; set; } = "0000000000"; // From user creation form
 
         [EmailAddress(ErrorMessage = "Invalid work email format.")]
-        public string WorkEmail { get; set; } = "example@gmail.com"; // Must be a valid email format
-
+        public string WorkEmail { get; set; } = "example@gmail.com";
 
         [RegularExpression(@"^\d{10,12}$", ErrorMessage = "Account number must be between 10 and 12 digits.")]
-        public string AccountNumber { get; set; } = "000000000000"; // Must be between 10 and 12 digits
+        public string AccountNumber { get; set; } = "000000000000";
 
-        public string Name { get; set; } = "Unknown"; // Default value: "Unknown"
-        public DateTime? DateOfBirth { get; set; } = new DateTime(1900, 1, 1); // Default value: 1st Jan 1900
-        public DateTime? StartDate { get; set; } = new DateTime(1900, 1, 1);
+        public string Name { get; set; } = "Unknown";
 
+        public DateTime? DateOfBirth { get; set; } = new DateTime(1900, 1, 1);
 
+        public DateTime? DateOfJoin { get; set; } = new DateTime(1900, 1, 1);
 
-        public Gender Gender { get; set; } = Gender.NotSpecified; // Default value: Not Specified
+        public Gender Gender { get; set; } = Gender.NotSpecified;
 
-        public string MaritalStatus { get; set; } = "Not Specified"; // Default value: "Not Specified"
+        public string MaritalStatus { get; set; } = "Not Specified";
 
-        public Bloodgroup BloodGroup { get; set; } = Bloodgroup.Unknown; // Default value: "Unknown"
+        public Bloodgroup BloodGroup { get; set; } = Bloodgroup.Unknown;
 
-        public string Nationality { get; set; } = "Unknown"; // Default value: "Unknown"
+        public string Nationality { get; set; } = "Unknown";
 
-        public string ResidentialAddress { get; set; } = "Unknown"; // Default value: "Unknown"
+        public string ResidentialAddress { get; set; } = "Unknown";
 
-        public string District { get; set; } = "Unknown"; // Default value: "Unknown"
+        public string District { get; set; } = "Unknown";
 
-        public string State { get; set; } = "Unknown"; // Default value: "Unknown"
+        public string State { get; set; } = "Unknown";
 
-        public decimal BasicPay { get; set; } = 0.0m; // Default value: 0.0
+        public decimal BasicPay { get; set; } = 0.0m;
 
-        public decimal HRA { get; set; } = 0.0m; // Default value: 0.0
+        public decimal HRA { get; set; } = 0.0m;
 
-        public decimal ConveyanceAllowance { get; set; } = 0.0m; // Default value: 0.0
+        public decimal ConveyanceAllowance { get; set; } = 0.0m;
 
-        public decimal FixedMedicalAllowance { get; set; } = 0.0m; // Default value: 0.0
+        public decimal FixedMedicalAllowance { get; set; } = 0.0m;
 
-        public decimal TotalEarnings { get; set; } = 0.0m; // Default value: 0.0
+        public decimal TotalEarnings { get; set; } = 0.0m;
 
-        public string BankName { get; set; } = "Unknown"; // Default value: "Unknown"
+        public string BankName { get; set; } = "Unknown";
 
-        public string AccountHolderName { get; set; } = "Unknown"; // Default value: "Unknown"
+        public string AccountHolderName { get; set; } = "Unknown";
 
-        public string Designation { get; set; } = "Unknown"; // Default value: "Unknown"
+        public string Designation { get; set; } = "Unknown";
 
-        public string Department { get; set; } = "Unknown"; // Default value: "Unknown"
+        public string Department { get; set; } = "Unknown";
 
-        
+        public string EmploymentType { get; set; } = "Unknown";
 
-        public string EmploymentType { get; set; } = "Unknown"; // Default value: "Unknown"
+        public string WorkPhoneNumber { get; set; } = "0000000000";
 
-        public string WorkPhoneNumber { get; set; } = "0000000000"; // Default value: "0000000000"
+        public bool LoginCreated { get; set; } = false; // Indicates if login has been created for the user
+
        
     }
 }

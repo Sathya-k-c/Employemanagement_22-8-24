@@ -22,9 +22,24 @@
             
         }
 
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black navbar */
+        }
+
+
+
         .navbar-custom {
-            
-            backdrop-filter: blur(5px);
+            background: linear-gradient(to right, #ff6f61, #d83a56); /* Gradient background for navbar */
+            color: #ffffff !important; /* Ensure navbar text is white */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure navbar stays on top */
+        }
+
+        .navbar-brand, .nav-link {
+            color: #ffffff !important; /* Ensure navbar text is white */
         }
 
         .dashboard-container {
@@ -183,7 +198,7 @@
                             <dd class="col-sm-6">@Model.Department</dd>
 
                             <dt class="col-sm-6">Start Date</dt>
-                            <dd class="col-sm-6">@Model.StartDate?.ToString("yyyy-MM-dd")</dd>
+                            <dd class="col-sm-6">@Model.DateOfJoin?.ToString("yyyy-MM-dd")</dd>
 
                             <dt class="col-sm-6">Employment Type</dt>
                             <dd class="col-sm-6">@Model.EmploymentType</dd>

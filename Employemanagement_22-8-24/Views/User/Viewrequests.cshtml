@@ -1,11 +1,16 @@
 ﻿@model IEnumerable<Employemanagement_22_8_24.Models.Request>
 
 @{
-    ViewData["Title"] = "View Requests";
+    ViewData["Title"] = "Requests";
+    
+    // Assuming the UserId is available in ViewData or ViewBag
+    var userId = ViewData["UserId"] as string;
 }
 
 <!DOCTYPE html>
 <html>
+<!-- Navbar -->
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -30,7 +35,6 @@
 
         .table-container {
             /* Semi-transparent black for contrast */
-           
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -38,15 +42,12 @@
 
         .table thead th {
             background-color: #343a40; /* Dark background for the header */
-            color:mediumseagreen; /* White text color */
+            color: mediumseagreen; /* White text color */
         }
 
         .table tbody tr:nth-child(odd) {
             /* Alternating row colors */
-           
             color: #ffffff;
-            
-
         }
 
         .highlight-shadow {
@@ -55,7 +56,7 @@
         }
 
         .table tbody tr:nth-child(even) {
-             /* Alternating row colors */
+            /* Alternating row colors */
             backdrop-filter: blur(2px);
         }
 
@@ -67,12 +68,53 @@
             background-color: #007bff; /* Primary button color */
             color: #ffffff; /* White text */
         }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black navbar */
+        }
+
+
+
+        .navbar-custom {
+            background: linear-gradient(to right, #ff6f61, #d83a56); /* Gradient background for navbar */
+            color: #ffffff !important; /* Ensure navbar text is white */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure navbar stays on top */
+        }
+
+        .navbar-brand, .nav-link {
+            color: #ffffff !important; /* Ensure navbar text is white */
+        }
     </style>
 </head>
+
+
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <a asp-controller="User" asp-action="UserDashboard" asp-route-userId="@userId" class="navbar-brand"> Dashboard</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ViewRequests", "User")">View Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("AddRequest", "User")">Add Request</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger btn-custom" href="@Url.Action("Logout", "User")">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="table-container">
-            <h1 class="text-center mb-4"  style="color:indigo">@ViewData["Title"]</h1>
+            <h1 class="text-center mb-4" style="color:indigo">@ViewData["Title"]</h1>
 
             <table class="table table-striped table-bordered table-hover">
                 <thead>
@@ -101,13 +143,19 @@
                                 }
                             </td>
                             <td>
-                               @request.isprocessed
+                                @request.isprocessed
                             </td>
                             <td>
-                                <form asp-action="DeleteRequest" asp-route-id="@request.RequestId" method="post" onsubmit="return confirm('Are you sure you want to delete this request?');">
-                                    <button type="submit" class="btn btn-danger btn-custom">Delete</button>
-                                </form>
-                               
+                                @if (request.isprocessed == Employemanagement_22_8_24.Data.Enums.Isprocessed.Processing)
+                                {
+                                    <form asp-action="DeleteRequest" asp-route-id="@request.RequestId" method="post" onsubmit="return confirm('Are you sure you want to delete this request?');">
+                                        <button type="submit" class="btn btn-danger btn-custom">Delete</button>
+                                    </form>
+                                }
+                                @if (request.isprocessed != Employemanagement_22_8_24.Data.Enums.Isprocessed.Processing)
+                                {
+                                    <p>@request.Remarks</p> <!-- Display remarks if any -->
+                                }
                             </td>
                         </tr>
                     }
@@ -115,7 +163,7 @@
             </table>
 
             <div class="text-center mt-4">
-                <a asp-controller="User" asp-action="AddRequest" class="btn btn-add btn-custom">Add New Request</a>
+                <a asp-controller="User" asp-action="UserDashboard" asp-route-userId="@userId" class="btn btn-add btn-custom">Go to User Dashboard</a>
             </div>
         </div>
     </div>

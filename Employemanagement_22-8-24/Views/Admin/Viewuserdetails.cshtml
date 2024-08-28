@@ -109,9 +109,57 @@
             margin-bottom: 10px;
             
         }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black navbar */
+        }
+
+
+
+        .navbar-custom {
+            background: linear-gradient(to right, #ff6f61, #d83a56); /* Gradient background for navbar */
+            color: #ffffff !important; /* Ensure navbar text is white */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure navbar stays on top */
+        }
+
+        .navbar-brand, .nav-link {
+            color: #ffffff !important; /* Ensure navbar text is white */
+        }
     </style>
 </head>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <a asp-controller="Admin" asp-action="AdminDashboard" class="navbar-brand"> Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
 
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="CreateUser">Create Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="CreateLogin">Create Login </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="ViewUsers">View Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="RequestManagement">Request Management</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="Logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="container">
     <h2>User Details</h2>
 
@@ -186,7 +234,7 @@
                 <dd class="col-sm-8">@Model.Department</dd>
 
                 <dt class="col-sm-4">Start Date</dt>
-                <dd class="col-sm-8">@Model.StartDate?.ToString("yyyy-MM-dd") </dd>
+                <dd class="col-sm-8">@Model.DateOfJoin?.ToString("yyyy-MM-dd") </dd>
 
                 <dt class="col-sm-4">Employment Type</dt>
                 <dd class="col-sm-8">@Model.EmploymentType</dd>

@@ -24,6 +24,8 @@ namespace Employemanagement_22_8_24.Models
 
         public Isprocessed isprocessed{ get; set; }
 
+        public string Remarks { get; set; } = "";
+
       
     }
 }

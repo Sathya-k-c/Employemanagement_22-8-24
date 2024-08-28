@@ -26,7 +26,70 @@ namespace Employemanagement_22_8_24.Controllers
         {
             return View();
         }
+        //--------------------------------------------------------------------------------------------------------
+        [HttpGet]
+        public async Task<IActionResult> CreateUser()
+        {
+            string newUserId = await _adminService.GenerateUserIdAsync();
+            var model = new User
+            {
+                UserId = newUserId
+            };
+            return View(model);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(User model)
+        {
+            if (true)
+            {
+                await _adminService.CreateUserAsync(model);
+                return RedirectToAction("AdminDashboard");
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateLogin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateLogin(string userId, string email)
+        {
+            var existingUser = await _adminService.GetUserByIdAsync(userId);
+
+            if (existingUser == null)
+            {
+                ModelState.AddModelError("UserId", "User not found.");
+            }
+            else if (existingUser.LoginCreated)
+            {
+                ModelState.AddModelError("UserId", "Login already created for this user.");
+            }
+            else
+            {
+                try
+                {
+                    await _adminService.AddLoginAsync(userId, email);
+                    return RedirectToAction("AdminDashboard");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error creating login");
+                    ModelState.AddModelError("", "An error occurred while creating login.");
+                }
+            }
+
+            return View();
+        }
+
+
+
+
+        //---------------------------------------------------------------------------------------------------
         [HttpGet]
         public async Task<ActionResult> AddUser()
         {
@@ -174,18 +237,18 @@ namespace Employemanagement_22_8_24.Controllers
             return View(requests);
         }
 
-        // POST: Admin/AcceptRequest
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AcceptRequest(int requestId)
+        public async Task<IActionResult> AcceptRequest(int requestId, string remarks)
         {
             try
             {
-                var request = await _adminService.GetAllRequestsAsync()
-                    .ContinueWith(t => t.Result.FirstOrDefault(r => r.RequestId == requestId));
+                var request = await _adminService.GetRequestByIdAsync(requestId);
                 if (request != null)
                 {
-                    await _adminService.AcceptRequestAsync(request);
+                    request.isprocessed = Isprocessed.Accepted;
+                    request.Remarks = remarks; // Set remarks
+                    await _adminService.UpdateRequestAsync(request);
                 }
             }
             catch (Exception ex)
@@ -194,22 +257,22 @@ namespace Employemanagement_22_8_24.Controllers
                 ModelState.AddModelError("", $"An error occurred while accepting the request: {ex.Message}");
             }
 
-            // Redirect to the pending requests page
             return RedirectToAction(nameof(RequestManagement), new { status = "pending" });
         }
 
         // POST: Admin/RejectRequest
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RejectRequest(int requestId)
+        public async Task<IActionResult> RejectRequest(int requestId, string remarks)
         {
             try
             {
-                var request = await _adminService.GetAllRequestsAsync()
-                    .ContinueWith(t => t.Result.FirstOrDefault(r => r.RequestId == requestId));
+                var request = await _adminService.GetRequestByIdAsync(requestId);
                 if (request != null)
                 {
-                    await _adminService.RejectRequestAsync(request);
+                    request.isprocessed = Isprocessed.Rejected;
+                    request.Remarks = remarks; // Set remarks
+                    await _adminService.UpdateRequestAsync(request);
                 }
             }
             catch (Exception ex)
@@ -218,10 +281,8 @@ namespace Employemanagement_22_8_24.Controllers
                 ModelState.AddModelError("", $"An error occurred while rejecting the request: {ex.Message}");
             }
 
-            // Redirect to the pending requests page
             return RedirectToAction(nameof(RequestManagement), new { status = "pending" });
         }
-
 
 
 

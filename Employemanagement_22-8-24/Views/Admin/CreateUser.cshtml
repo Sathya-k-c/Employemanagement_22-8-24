@@ -1,7 +1,7 @@
 ﻿@model Employemanagement_22_8_24.Models.User
 
 @{
-    ViewBag.Title = "Edit User";
+    ViewBag.Title = "Create User";
 }
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alike&family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-       
+
 
         body {
             background: url('https://i.pinimg.com/originals/5a/70/a1/5a70a16fb910f8aa654b11ea085b1cb1.jpg') no-repeat center center fixed;
@@ -49,8 +49,8 @@
 
         .card {
             border-radius: 10px; /* Rounded corners for cards */
-            
-            color:black;
+
+            color: black;
         }
 
         .card-header {
@@ -89,7 +89,7 @@
             background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black navbar */
         }
 
-
+        
 
         .navbar-custom {
             background: linear-gradient(to right, #ff6f61, #d83a56); /* Gradient background for navbar */
@@ -104,8 +104,9 @@
         .navbar-brand, .nav-link {
             color: #ffffff !important; /* Ensure navbar text is white */
         }
+
     </style>
-    </head>
+</head>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
     <a asp-controller="Admin" asp-action="AdminDashboard" class="navbar-brand"> Dashboard</a>
@@ -138,9 +139,9 @@
 
 <div class="container mt-4">
     <!-- Centered Main Title -->
-    <h2 class="text-center mb-5 text-shadow">Edit User</h2>
+    <h2 class="text-center mb-5 text-shadow">Create User</h2>
 
-    <form asp-action="EditUser" method="post">
+    <form asp-action="CreateUser" method="post">
         <!-- Personal Details Section -->
         <div class="card mb-4 shadow-lg">
             <div class="card-header bg-gradient-pink text-white">
@@ -148,7 +149,6 @@
             </div>
             <div class="card-body bg-light">
                 <div class="form-row">
-
                     <div class="form-group col-md-6">
                         <label asp-for="UserId" class="control-label"></label>
                         <input asp-for="UserId" class="form-control" readonly />
@@ -339,7 +339,7 @@
                         <span asp-validation-for="DateOfJoin" class="text-danger"></span>
                     </div>
 
-                    
+
                 </div>
 
                 <div class="form-row">
@@ -361,12 +361,15 @@
         <input type="hidden" asp-for="UserId" />
 
         <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary btn-lg shadow-sm">Save Changes</button>
+            <button type="submit" class="btn btn-primary btn-lg shadow-sm">Create User</button>
             <a asp-controller="Admin" asp-action="ViewUsers" class="btn btn-secondary btn-lg shadow-sm">Back to List</a>
+        </div>
+        <div class="form-group text-center mt-4">
+            <a asp-controller="Admin" asp-action="AdminDashboard" class="btn btn-secondary btn-lg shadow-sm">Back to Dashboard</a>
         </div>
     </form>
 </div>
-    <html>
+<html>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

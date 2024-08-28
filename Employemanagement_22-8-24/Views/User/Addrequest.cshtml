@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = "Add Request";
+  
     // Retrieve the UserId from the session or from ViewData if passed by the controller
     var userId = ViewData["UserId"] as string; // Retrieve UserId from ViewData
 
@@ -61,8 +62,50 @@
         .btn-custom {
             margin: 5px;
         }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black navbar */
+        }
+
+
+
+        .navbar-custom {
+            background: linear-gradient(to right, #ff6f61, #d83a56); /* Gradient background for navbar */
+            color: #ffffff !important; /* Ensure navbar text is white */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure navbar stays on top */
+        }
+
+        .navbar-brand, .nav-link {
+            color: #ffffff !important; /* Ensure navbar text is white */
+        }
     </style>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <a asp-controller="User" asp-action="UserDashboard" asp-route-userId="@userId" class="navbar-brand"> Dashboard</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ViewRequests", "User")">View Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("AddRequest", "User")">Add Request</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger btn-custom" href="@Url.Action("Logout", "User")">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </head>
+
+
 <body>
     <div class="container">
         <div class="form-container">
@@ -81,7 +124,9 @@
                     <button type="submit" class="btn btn-primary btn-custom">Submit Request</button>
                 </div>
             </form>
-
+            <div class="text-center mt-4">
+                <a asp-controller="User" asp-action="UserDashboard" asp-route-userId="@userId" class="btn btn-add btn-custom">Go to User Dashboard</a>
+            </div>
             
         </div>
     </div>

@@ -24,7 +24,6 @@
             font-weight: 400;
             font-style: normal;
             font-weight: bold;
-        
         }
 
         .container {
@@ -108,8 +107,66 @@
         .text-danger {
             font-size: 0.9em;
         }
+
+        .remarks-form {
+            display: none;
+            margin-top: 10px;
+        }
+
+            .remarks-form.active {
+                display: block;
+            }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black navbar */
+        }
+
+
+
+        .navbar-custom {
+            background: linear-gradient(to right, #ff6f61, #d83a56); /* Gradient background for navbar */
+            color: #ffffff !important; /* Ensure navbar text is white */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure navbar stays on top */
+        }
+
+        .navbar-brand, .nav-link {
+            color: #ffffff !important; /* Ensure navbar text is white */
+        }
     </style>
 </head>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <a asp-controller="Admin" asp-action="AdminDashboard" class="navbar-brand"> Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="CreateUser">Create Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="CreateLogin">Create Login </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="ViewUsers">View Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="RequestManagement">Request Management</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="Logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <div class="container">
     <h2>Request Management</h2>
@@ -128,6 +185,7 @@
                 <th>Edit Request</th>
                 <th>Request Date</th>
                 <th>Status</th>
+                <th>Remarks</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -141,17 +199,45 @@
                     <td>@request.RequestDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
                     <td>@request.isprocessed</td>
                     <td>
+                        @if (request.isprocessed == Employemanagement_22_8_24.Data.Enums.Isprocessed.Accepted || request.isprocessed == Employemanagement_22_8_24.Data.Enums.Isprocessed.Rejected)
+                        {
+                            @request.Remarks
+                        }
+                        else
+                        {
+                            <span>N/A</span>
+                        }
+                    </td>
+                    <td>
                         @if (request.isprocessed == Employemanagement_22_8_24.Data.Enums.Isprocessed.Processing)
                         {
-                            <form asp-action="AcceptRequest" asp-controller="Admin" method="post" style="display:inline;">
-                                <input type="hidden" name="requestId" value="@request.RequestId" />
-                                <button type="submit" class="btn btn-success">Accept</button>
-                            </form>
-                            <form asp-action="RejectRequest" asp-controller="Admin" method="post" style="display:inline;">
-                                <input type="hidden" name="requestId" value="@request.RequestId" />
-                                <button type="submit" class="btn btn-danger">Reject</button>
-                            </form>
+                            <button type="button" class="btn btn-success" onclick="showRemarkForm('accept-@request.RequestId')">Accept</button>
+                            <button type="button" class="btn btn-danger" onclick="showRemarkForm('reject-@request.RequestId')">Reject</button>
                         }
+                    </td>
+                </tr>
+                <tr class="remarks-form" id="accept-@request.RequestId">
+                    <td colspan="7">
+                        <form asp-action="AcceptRequest" asp-controller="Admin" method="post">
+                            <input type="hidden" name="requestId" value="@request.RequestId" />
+                            <div class="form-group">
+                                <label for="remarks">Remarks:</label>
+                                <textarea name="remarks" id="remarks" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="remarks-form" id="reject-@request.RequestId">
+                    <td colspan="7">
+                        <form asp-action="RejectRequest" asp-controller="Admin" method="post">
+                            <input type="hidden" name="requestId" value="@request.RequestId" />
+                            <div class="form-group">
+                                <label for="remarks">Remarks:</label>
+                                <textarea name="remarks" id="remarks" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Submit</button>
+                        </form>
                     </td>
                 </tr>
             }
@@ -165,4 +251,15 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        function showRemarkForm(formId) {
+            // Hide all remark forms
+            document.querySelectorAll('.remarks-form').forEach(form => {
+                form.classList.remove('active');
+            });
+
+            // Show the selected form
+            document.getElementById(formId).classList.add('active');
+        }
+    </script>
 }
