@@ -3,6 +3,7 @@ using Employemanagement_22_8_24.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 using System.Net;
+using System.Collections.Concurrent;
 
 namespace Employemanagement_22_8_24.Data.Services
 {
@@ -14,6 +15,7 @@ namespace Employemanagement_22_8_24.Data.Services
         {
             _context = context;
         }
+        public readonly ConcurrentDictionary<string, string> _otpStore = new ConcurrentDictionary<string, string>();
 
 
 
@@ -44,18 +46,14 @@ namespace Employemanagement_22_8_24.Data.Services
 
         public async Task SendOtpAsync(string userId, string email)
         {
+            // Generate a new OTP
             var otp = GenerateOtp();
-            ValidateOtp validateOtp = new ValidateOtp
-            {
-                UserId = userId,
-                Otp = otp
-            };
-            
 
-             _context.ValidateOtps.Add(validateOtp); 
-            await _context.SaveChangesAsync();
+            // Store the OTP in the dictionary
+            _otpStore.AddOrUpdate(userId, otp, (key, oldValue) => otp);
+
+            // Send OTP via email using SMTP
             SendEmail(email, "Your OTP", $"Your OTP is: {otp}");
-            // Code to send OTP via email using SMTP
 
 
         }
@@ -103,8 +101,26 @@ namespace Employemanagement_22_8_24.Data.Services
 
         public async Task<bool> ValidateOtpAsync(string userId, string otp)
         {
-            var validateOtp = await _context.ValidateOtps.FirstOrDefaultAsync(x => x.UserId == userId && x.Otp == otp);
-            return validateOtp != null;
+            // Validate OTP from the dictionary
+            // Log the current state of _otpStore for debugging
+            Console.WriteLine("Current OTP Store:");
+            foreach (var kvp in _otpStore)
+            {
+                Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
+            }
+
+            // Check if the key exists and retrieve the OTP
+            if (_otpStore.TryGetValue(userId, out var storedOtp))
+            {
+                Console.WriteLine($"Stored OTP for {userId}: {storedOtp}");
+                // Check if the provided OTP matches the stored OTP
+                return storedOtp == otp;
+            }
+
+            // If the key was not found, log this information
+            Console.WriteLine($"No OTP found for userId: {userId}");
+
+            return false;
         }
 
 

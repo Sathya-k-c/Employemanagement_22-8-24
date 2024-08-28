@@ -19,6 +19,7 @@ namespace Employemanagement_22_8_24.Models
         public bool IsFirstTimeLogin { get; set; } = true; // Default value is true for first-time login, no validation required
 
         [Required(ErrorMessage = "Email is required.")]
+
         [EmailAddress(ErrorMessage = "Invalid email format.")]
         public string Email { get; set; } // Taken from admin during add user
 

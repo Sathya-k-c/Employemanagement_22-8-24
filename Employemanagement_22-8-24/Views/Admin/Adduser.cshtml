@@ -4,29 +4,111 @@
     ViewBag.Title = "Add User";
 }
 
-<h2>Add User</h2>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alike&family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://lh3.googleusercontent.com/proxy/YNCJHmCvtd8KZ8pd963GuPHCdummnUVrjeYC4trkfEtLwfzt04lhJdDAKAJOgXEqbbhH1ii-GEjVlwWZ0NyUmiYtC7N3_1EAUTG7B3M6vzj0l0v2-DdUvOtD2tlc2knWiLuHlxOQkq5o7ZtYyN75zR_Uh9I') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #1b1b1b; /* Dark background for contrast */
+            color: #fff; /* Light text color for contrast */
+            font-family: "Alike", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
 
-<form asp-action="AddUser" method="post">
-    <div class="form-group">
-        <label asp-for="UserId"></label>
-        <input asp-for="UserId" class="form-control" />
-        <span asp-validation-for="UserId" class="text-danger"></span>
-    </div>
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            
+        }
 
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
+        h2 {
+            text-align: center;
+            color: aqua;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
 
-    <div class="form-group">
-        <label asp-for="Role"></label>
-        <input asp-for="Role" class="form-control" />
-        <span asp-validation-for="Role" class="text-danger"></span>
-    </div>
+        .form-group label {
+            font-weight: bold;
+            color: aquamarine;
+        }
 
-    <button type="submit" class="btn btn-primary">Add User</button>
-</form>
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #4a90e2, #50e3c2);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background: linear-gradient(to right, #50e3c2, #4a90e2);
+            }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            background: linear-gradient(to right, #ff6f61, #d83a56); /* Gradient for the section title */
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .text-danger {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <h2>Add User</h2>
+
+    <div class="section-title">User Information</div>
+
+    <form asp-action="AddUser" method="post">
+        <div class="form-group">
+            <label asp-for="UserId"></label>
+            <input asp-for="UserId" class="form-control" />
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Role"></label>
+            <input asp-for="Role" class="form-control" />
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Add User</button>
+    </form>
+</div>
 
 @section Scripts {
     @{

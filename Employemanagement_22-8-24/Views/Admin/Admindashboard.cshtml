@@ -1,33 +1,143 @@
 ﻿@* Views/Admin/Admindashboard.cshtml *@
 @{
-    ViewBag.Title = "Admin dashboard";
+    ViewBag.Title = "Admin Dashboard";
 }
 
-<h2>Admin Dashboard</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alike&family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://lh6.googleusercontent.com/proxy/_7poAnWoArH0OlZ7onZ4yka5EHCa4pb2cGECHKYlYmwJdQgsILkGlQ7gOTc1gC99Ot6ppOAzK7fmBxTcQyrtmFeHZGaQZN09rjuM9HvZSqWk6C_hV8deriHg4EX6Qe_QLetTuQMdPaNJheUS44wErw_Z94WHoozYrgtptRIntC7hGHclQrpvnAjkVaDbW9NQiZwpQQTaROyJ3X-bYWxXChQbXICzxMVKWj18QTVk5_Bjqw=w1920-h912') no-repeat center center fixed;
+            background-size: cover;
+            font-family: "Alike", serif;
+            font-weight: 400;
+            font-style: normal;
+            color: #ffffff; /* Default text color */
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Admin Dashboard</a>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Admin" asp-action="AddUser">Add Users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Admin" asp-action="ViewUsers">View Users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Admin" asp-action="RequestManagement">Request Management</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Admin" asp-action="Logout">Logout</a>
-            </li>
-        </ul>
+        }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black navbar */
+        }
+
+        .navbar-brand, .nav-link {
+            color: #ffffff !important; /* Ensure navbar text is white */
+        }
+
+        .dashboard-container {
+            margin-top: 20px;
+        }
+
+        .dashboard-title {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            color: #ffffff;
+            border: none;
+            margin: 10px;
+            width: 30%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .btn-custom {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Admin Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Admin" asp-action="AddUser">Add Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Admin" asp-action="ViewUsers">View Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Admin" asp-action="RequestManagement">Request Management</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Admin" asp-action="Logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Title -->
+    <div class="container dashboard-container">
+        <div class="dashboard-title">
+            <h2>Welcome to the Admin Dashboard</h2>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="card-container">
+            <!-- Add Users Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Add Users</h5>
+                    <p class="card-text">Add new employees or admin users to the system.</p>
+                    <a href="@Url.Action("AddUser", "Admin")" class="btn btn-primary btn-custom">Add Users</a>
+                </div>
+            </div>
+
+            <!-- View Users Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">View Users</h5>
+                    <p class="card-text">Manage and edit user details, export user data to Excel.</p>
+                    <a href="@Url.Action("ViewUsers", "Admin")" class="btn btn-primary btn-custom">View Users</a>
+                </div>
+            </div>
+
+            <!-- Request Management Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Request Management</h5>
+                    <p class="card-text">Review and approve user edit requests.</p>
+                    <a href="@Url.Action("RequestManagement", "Admin")" class="btn btn-primary btn-custom">Manage Requests</a>
+                </div>
+            </div>
+        </div>
     </div>
-</nav>
 
-<!-- Add any additional content or widgets for the dashboard here -->
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
-}
+</body>
+</html>

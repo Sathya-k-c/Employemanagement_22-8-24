@@ -4,90 +4,208 @@
     ViewBag.Title = "View User Details";
 }
 
-<h2>User Details</h2>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alike&family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://lh5.googleusercontent.com/proxy/Vk79rEn7i0N38TTlg0PUjgXB9hHmjpi5Msp7Un1Ll1i8NUWhL6RCMnCwQnGrrQ2pCgN9D5rMbrBBm6ph_eHd_ivIWgt8-eDpEBSCynpc0IhO90pwW0dAjWuAX9iOYjwJT3-SiBPzHEuJBXZHwjkLIIHTeY3YaDiY6t9MPYcxaP6pSy9_1SNUxqir7Kmlc4Lc6SvBMjwS4zY9ELHZvKZeJZaZvHFtqrKyTap-HKYRJi6rnSLOX3yBu6tHjFFF3NYZV6djxXpwswUQ2CA3rzp_x4viayKpPA=w1920-h912') no-repeat center center fixed;
+            background-size: cover;
+            color: black; /* Darker text color for readability on white card */
+            font-family: "Alike", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
 
-<div class="card">
-    <div class="card-body">
-        <dl class="row">
-            <dt class="col-sm-3">Name</dt>
-            <dd class="col-sm-9">@Model.Name</dd>
+        .card {
+             /* White background for the card */
+            backdrop-filter: blur(100px);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: transparent;
+        }
 
-            <dt class="col-sm-3">Date of Birth</dt>
-            <dd class="col-sm-9">@Model.DateOfBirth?.ToString("yyyy-MM-dd")</dd>
+        .card-body {
+            padding: 20px;
+            backdrop-filter: blur(100px);
+            background-color: transparent;
+        }
 
-            <dt class="col-sm-3">Gender</dt>
-            <dd class="col-sm-9">@Model.Gender</dd>
+        .btn-warning, .btn-secondary {
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-            <dt class="col-sm-3">Marital Status</dt>
-            <dd class="col-sm-9">@Model.MaritalStatus</dd>
+        .btn-warning {
+            background: linear-gradient(to right, #ff6f61, #d83a56);
+            border: none;
+            color: #fff;
+        }
 
-            <dt class="col-sm-3">Blood Group</dt>
-            <dd class="col-sm-9">@Model.BloodGroup</dd>
+            .btn-warning:hover {
+                background: linear-gradient(to right, #d83a56, #ff6f61);
+            }
 
-            <dt class="col-sm-3">Nationality</dt>
-            <dd class="col-sm-9">@Model.Nationality</dd>
+        .btn-secondary {
+            background: linear-gradient(to right, #4a90e2, #50e3c2);
+            border: none;
+            color: #fff;
+        }
 
-            <dt class="col-sm-3">Residential Address</dt>
-            <dd class="col-sm-9">@Model.ResidentialAddress</dd>
+            .btn-secondary:hover {
+                background: linear-gradient(to right, #50e3c2, #4a90e2);
+            }
 
-            <dt class="col-sm-3">District</dt>
-            <dd class="col-sm-9">@Model.District</dd>
+        h2 {
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            color: #333;
+        }
 
-            <dt class="col-sm-3">State</dt>
-            <dd class="col-sm-9">@Model.State</dd>
+        .section-title {
+            margin-top: 30px;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #fff;
+            padding: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
 
-            <dt class="col-sm-3">Personal Phone Number</dt>
-            <dd class="col-sm-9">@Model.PersonalPhoneNumber</dd>
+            .section-title.personal {
+                background: linear-gradient(to right, #6a11cb, #2575fc); /* Purple to blue gradient for Personal Details */
+            }
 
-            <dt class="col-sm-3">Basic Pay</dt>
-            <dd class="col-sm-9">@Model.BasicPay.ToString("C")</dd>
+            .section-title.salary {
+                background: linear-gradient(to right, #ff9800, #f44336); /* Orange to red gradient for Salary Details */
+            }
 
-            <dt class="col-sm-3">HRA</dt>
-            <dd class="col-sm-9">@Model.HRA.ToString("C")</dd>
+            .section-title.company {
+                background: linear-gradient(to right, #00b09b, #96c93d); /* Green to lime gradient for Company Details */
+            }
 
-            <dt class="col-sm-3">Conveyance Allowance</dt>
-            <dd class="col-sm-9">@Model.ConveyanceAllowance.ToString("C")</dd>
+        dt {
+            font-weight: bold;
+            color: #333;
+            
+        }
 
-            <dt class="col-sm-3">Fixed Medical Allowance</dt>
-            <dd class="col-sm-9">@Model.FixedMedicalAllowance.ToString("C")</dd>
+        dd {
+            color: #555;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            
+        }
+    </style>
+</head>
 
-            <dt class="col-sm-3">Total Earnings</dt>
-            <dd class="col-sm-9">@Model.TotalEarnings.ToString("C")</dd>
+<div class="container">
+    <h2>User Details</h2>
 
-            <dt class="col-sm-3">Bank Name</dt>
-            <dd class="col-sm-9">@Model.BankName</dd>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="section-title personal">Personal Details</h3>
+            <dl class="row">
+                <dt class="col-sm-4">Name</dt>
+                <dd class="col-sm-8">@Model.Name</dd>
 
-            <dt class="col-sm-3">Account Holder Name</dt>
-            <dd class="col-sm-9">@Model.AccountHolderName</dd>
+                <dt class="col-sm-4">Date of Birth</dt>
+                <dd class="col-sm-8">@Model.DateOfBirth?.ToString("yyyy-MM-dd")</dd>
 
-            <dt class="col-sm-3">Account Number</dt>
-            <dd class="col-sm-9">@Model.AccountNumber</dd>
+                <dt class="col-sm-4">Gender</dt>
+                <dd class="col-sm-8">@Model.Gender</dd>
 
-            <dt class="col-sm-3">Designation</dt>
-            <dd class="col-sm-9">@Model.Designation</dd>
+                <dt class="col-sm-4">Marital Status</dt>
+                <dd class="col-sm-8">@Model.MaritalStatus</dd>
 
-            <dt class="col-sm-3">Department</dt>
-            <dd class="col-sm-9">@Model.Department</dd>
+                <dt class="col-sm-4">Blood Group</dt>
+                <dd class="col-sm-8">@Model.BloodGroup</dd>
 
-            <dt class="col-sm-3">Start Date</dt>
-            <dd class="col-sm-9">    @Model.StartDate?.ToString("yyyy-MM-dd") ?? "Not available"
-</dd>
+                <dt class="col-sm-4">Nationality</dt>
+                <dd class="col-sm-8">@Model.Nationality</dd>
 
-            <dt class="col-sm-3">Employment Type</dt>
-            <dd class="col-sm-9">@Model.EmploymentType</dd>
+                <dt class="col-sm-4">Residential Address</dt>
+                <dd class="col-sm-8">@Model.ResidentialAddress</dd>
 
-            <dt class="col-sm-3">Work Email</dt>
-            <dd class="col-sm-9">@Model.WorkEmail</dd>
+                <dt class="col-sm-4">District</dt>
+                <dd class="col-sm-8">@Model.District</dd>
 
-            <dt class="col-sm-3">Work Phone Number</dt>
-            <dd class="col-sm-9">@Model.WorkPhoneNumber</dd>
-        </dl>
+                <dt class="col-sm-4">State</dt>
+                <dd class="col-sm-8">@Model.State</dd>
 
-        <form action="@Url.Action("EditUser", "Admin")" method="get" style="display:inline;">
-            <input type="hidden" name="userId" value="@Model.UserId" />
-            <button type="submit" class="btn btn-warning btn-sm">Edit</button>
-        </form>
-        <a asp-controller="Admin" asp-action="ViewUsers" class="btn btn-secondary">Back to User List</a>
+                <dt class="col-sm-4">Personal Phone Number</dt>
+                <dd class="col-sm-8">@Model.PersonalPhoneNumber</dd>
+            </dl>
+
+            <h3 class="section-title salary">Salary Details</h3>
+            <dl class="row">
+                <dt class="col-sm-4">Basic Pay</dt>
+                <dd class="col-sm-8">@Model.BasicPay.ToString("C")</dd>
+
+                <dt class="col-sm-4">HRA</dt>
+                <dd class="col-sm-8">@Model.HRA.ToString("C")</dd>
+
+                <dt class="col-sm-4">Conveyance Allowance</dt>
+                <dd class="col-sm-8">@Model.ConveyanceAllowance.ToString("C")</dd>
+
+                <dt class="col-sm-4">Fixed Medical Allowance</dt>
+                <dd class="col-sm-8">@Model.FixedMedicalAllowance.ToString("C")</dd>
+
+                <dt class="col-sm-4">Total Earnings</dt>
+                <dd class="col-sm-8">@Model.TotalEarnings.ToString("C")</dd>
+
+                <dt class="col-sm-4">Bank Name</dt>
+                <dd class="col-sm-8">@Model.BankName</dd>
+
+                <dt class="col-sm-4">Account Holder Name</dt>
+                <dd class="col-sm-8">@Model.AccountHolderName</dd>
+
+                <dt class="col-sm-4">Account Number</dt>
+                <dd class="col-sm-8">@Model.AccountNumber</dd>
+            </dl>
+
+            <h3 class="section-title company">Company Details</h3>
+            <dl class="row">
+                <dt class="col-sm-4">Designation</dt>
+                <dd class="col-sm-8">@Model.Designation</dd>
+
+                <dt class="col-sm-4">Department</dt>
+                <dd class="col-sm-8">@Model.Department</dd>
+
+                <dt class="col-sm-4">Start Date</dt>
+                <dd class="col-sm-8">@Model.StartDate?.ToString("yyyy-MM-dd") </dd>
+
+                <dt class="col-sm-4">Employment Type</dt>
+                <dd class="col-sm-8">@Model.EmploymentType</dd>
+
+                <dt class="col-sm-4">Work Email</dt>
+                <dd class="col-sm-8">@Model.WorkEmail</dd>
+
+                <dt class="col-sm-4">Work Phone Number</dt>
+                <dd class="col-sm-8">@Model.WorkPhoneNumber</dd>
+            </dl>
+
+            <div class="text-center mt-4">
+                <form action="@Url.Action("EditUser", "Admin")" method="get" style="display:inline;">
+                    <input type="hidden" name="userId" value="@Model.UserId" />
+                    <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                </form>
+                <a asp-controller="Admin" asp-action="ViewUsers" class="btn btn-secondary">Back to User List</a>
+            </div>
+        </div>
     </div>
 </div>
 

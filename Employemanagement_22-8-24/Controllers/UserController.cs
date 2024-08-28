@@ -73,6 +73,12 @@ namespace Employemanagement_22_8_24.Controllers
         // GET: User/AddRequest
         public IActionResult AddRequest()
         {
+            // Retrieve the current user ID from the session
+            string currentUserId = HttpContext.Session.GetString("UserId");
+
+            // Pass the user ID to the view if needed
+            ViewData["UserId"] = currentUserId;
+
             return View();
         }
 

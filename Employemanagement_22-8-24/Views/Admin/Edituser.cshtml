@@ -4,185 +4,314 @@
     ViewBag.Title = "Edit User";
 }
 
-<h2>Edit User</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alike&family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+       
 
-<form asp-action="EditUser" method="post">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+        body {
+            background: url('https://i.pinimg.com/originals/5a/70/a1/5a70a16fb910f8aa654b11ea085b1cb1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #1b1b1b; /* Dark background for contrast */
+            color: #f5f5f5; /* Light text color for readability */
+            font-family: "Alike", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
 
-    <div class="form-group">
-        <label asp-for="DateOfBirth" class="control-label"></label>
-        <input asp-for="DateOfBirth" class="form-control" type="date" />
-        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-    </div>
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
 
-    <div class="form-group">
-        <label asp-for="Gender" class="control-label"></label>
-        <select asp-for="Gender" class="form-control">
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-        </select>
-        <span asp-validation-for="Gender" class="text-danger"></span>
-    </div>
+        .bg-gradient-pink {
+            background: linear-gradient(to right, #ff6f61, #d83a56);
+        }
 
-    <div class="form-group">
-        <label asp-for="BloodGroup" class="control-label"></label>
-        <select asp-for="BloodGroup" class="form-control">
-            <option value="">Select Blood Group</option>
-            <option value="Unknown">Unknown</option>
-            <option value="A_Positive">A_Positive</option>
-            <option value="A_Negative">A_Negative</option>
-            <option value="B_Positive">B_Positive</option>
-            <option value="B_Negative">B_Negative</option>
-            <option value="AB_Positive">AB_Positive</option>
-            <option value="AB_Negative">AB_Negative</option>
-            <option value="O_Positive">O_Positive</option>
-            <option value="O_Negative">O_Negative</option>
-        </select>
-        <span asp-validation-for="BloodGroup" class="text-danger"></span>
-        
-    </div>
+        .bg-gradient-blue {
+            background: linear-gradient(to right, #4a90e2, #50e3c2);
+        }
 
-    <div class="form-group">
-        <label asp-for="MaritalStatus" class="control-label"></label>
-        <select asp-for="MaritalStatus" class="form-control">
-            <option value="">Select Marital Status</option>
-            <option value="">Single</option>
-            <option value="Married">Married</option>
-            <option value="Divorced">Divorced</option>
-            <option value="Widowed">Widowed</option>
-        </select>
+        .bg-gradient-green {
+            background: linear-gradient(to right, #7ed321, #a0d0a8);
+        }
 
-        <span asp-validation-for="MaritalStatus" class="text-danger"></span>
-    </div>
+        .card {
+            border-radius: 10px; /* Rounded corners for cards */
+            
+            color:black;
+        }
 
-    <div class="form-group">
-        <label asp-for="Nationality" class="control-label"></label>
-        <input asp-for="Nationality" class="form-control" />
-        <span asp-validation-for="Nationality" class="text-danger"></span>
-    </div>
+        .card-header {
+            border-bottom: 2px solid #fff;
+        }
 
-    <div class="form-group">
-        <label asp-for="ResidentialAddress" class="control-label"></label>
-        <textarea asp-for="ResidentialAddress" class="form-control"></textarea>
-        <span asp-validation-for="ResidentialAddress" class="text-danger"></span>
-    </div>
+        .btn-primary {
+            background-color: #ff6f61;
+            border-color: #ff6f61;
+        }
 
-    <div class="form-group">
-        <label asp-for="District" class="control-label"></label>
-        <input asp-for="District" class="form-control" />
-        <span asp-validation-for="District" class="text-danger"></span>
-    </div>
+            .btn-primary:hover {
+                background-color: #d83a56;
+                border-color: #d83a56;
+            }
 
-    <div class="form-group">
-        <label asp-for="State" class="control-label"></label>
-        <input asp-for="State" class="form-control" />
-        <span asp-validation-for="State" class="text-danger"></span>
-    </div>
+        .btn-secondary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+        }
 
-    <div class="form-group">
-        <label asp-for="PersonalPhoneNumber" class="control-label"></label>
-        <input asp-for="PersonalPhoneNumber" class="form-control" />
-        <span asp-validation-for="PersonalPhoneNumber" class="text-danger"></span>
-    </div>
+            .btn-secondary:hover {
+                background-color: #50e3c2;
+                border-color: #50e3c2;
+            }
 
-    <div class="form-group">
-        <label asp-for="BasicPay" class="control-label"></label>
-        <input asp-for="BasicPay" class="form-control" type="number" step="0.01" />
-        <span asp-validation-for="BasicPay" class="text-danger"></span>
-    </div>
+        .shadow-lg {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-    <div class="form-group">
-        <label asp-for="HRA" class="control-label"></label>
-        <input asp-for="HRA" class="form-control" type="number" step="0.01" />
-        <span asp-validation-for="HRA" class="text-danger"></span>
-    </div>
+        .shadow-sm {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    <div class="form-group">
-        <label asp-for="ConveyanceAllowance" class="control-label"></label>
-        <input asp-for="ConveyanceAllowance" class="form-control" type="number" step="0.01" />
-        <span asp-validation-for="ConveyanceAllowance" class="text-danger"></span>
-    </div>
+    </style>
+    </head>
 
-    <div class="form-group">
-        <label asp-for="FixedMedicalAllowance" class="control-label"></label>
-        <input asp-for="FixedMedicalAllowance" class="form-control" type="number" step="0.01" />
-        <span asp-validation-for="FixedMedicalAllowance" class="text-danger"></span>
-    </div>
+<div class="container mt-4">
+    <!-- Centered Main Title -->
+    <h2 class="text-center mb-5 text-shadow">Edit User</h2>
 
-    <div class="form-group">
-        <label asp-for="TotalEarnings" class="control-label"></label>
-        <input asp-for="TotalEarnings" class="form-control" type="number" step="0.01" />
-        <span asp-validation-for="TotalEarnings" class="text-danger"></span>
-    </div>
+    <form asp-action="EditUser" method="post">
+        <!-- Personal Details Section -->
+        <div class="card mb-4 shadow-lg">
+            <div class="card-header bg-gradient-pink text-white">
+                <h4 class="mb-0">Personal Details</h4>
+            </div>
+            <div class="card-body bg-light">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
 
-    <div class="form-group">
-        <label asp-for="BankName" class="control-label"></label>
-        <input asp-for="BankName" class="form-control" />
-        <span asp-validation-for="BankName" class="text-danger"></span>
-    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="DateOfBirth" class="control-label"></label>
+                        <input asp-for="DateOfBirth" class="form-control" type="date" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="AccountHolderName" class="control-label"></label>
-        <input asp-for="AccountHolderName" class="form-control" />
-        <span asp-validation-for="AccountHolderName" class="text-danger"></span>
-    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Gender" class="control-label"></label>
+                        <select asp-for="Gender" class="form-control">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
 
-    <div class="form-group">
-        <label asp-for="AccountNumber" class="control-label"></label>
-        <input asp-for="AccountNumber" class="form-control" />
-        <span asp-validation-for="AccountNumber" class="text-danger"></span>
-    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BloodGroup" class="control-label"></label>
+                        <select asp-for="BloodGroup" class="form-control">
+                            <option value="">Select Blood Group</option>
+                            <option value="Unknown">Unknown</option>
+                            <option value="A_Positive">A_Positive</option>
+                            <option value="A_Negative">A_Negative</option>
+                            <option value="B_Positive">B_Positive</option>
+                            <option value="B_Negative">B_Negative</option>
+                            <option value="AB_Positive">AB_Positive</option>
+                            <option value="AB_Negative">AB_Negative</option>
+                            <option value="O_Positive">O_Positive</option>
+                            <option value="O_Negative">O_Negative</option>
+                        </select>
+                        <span asp-validation-for="BloodGroup" class="text-danger"></span>
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="Designation" class="control-label"></label>
-        <input asp-for="Designation" class="form-control" />
-        <span asp-validation-for="Designation" class="text-danger"></span>
-    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="MaritalStatus" class="control-label"></label>
+                        <select asp-for="MaritalStatus" class="form-control">
+                            <option value="">Select Marital Status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Widowed">Widowed</option>
+                        </select>
+                        <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+                    </div>
 
-    <div class="form-group">
-        <label asp-for="Department" class="control-label"></label>
-        <input asp-for="Department" class="form-control" />
-        <span asp-validation-for="Department" class="text-danger"></span>
-    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Nationality" class="control-label"></label>
+                        <input asp-for="Nationality" class="form-control" />
+                        <span asp-validation-for="Nationality" class="text-danger"></span>
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="StartDate" class="control-label"></label>
-        <input asp-for="StartDate" class="form-control" type="date" />
-        <span asp-validation-for="StartDate" class="text-danger"></span>
-    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="ResidentialAddress" class="control-label"></label>
+                        <textarea asp-for="ResidentialAddress" class="form-control"></textarea>
+                        <span asp-validation-for="ResidentialAddress" class="text-danger"></span>
+                    </div>
 
-    <div class="form-group">
-        <label asp-for="EmploymentType" class="control-label"></label>
-        <input asp-for="EmploymentType" class="form-control" />
-        <span asp-validation-for="EmploymentType" class="text-danger"></span>
-    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="District" class="control-label"></label>
+                        <input asp-for="District" class="form-control" />
+                        <span asp-validation-for="District" class="text-danger"></span>
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="WorkEmail" class="control-label"></label>
-        <input asp-for="WorkEmail" class="form-control" />
-        <span asp-validation-for="WorkEmail" class="text-danger"></span>
-    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="State" class="control-label"></label>
+                        <input asp-for="State" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
 
-    <div class="form-group">
-        <label asp-for="WorkPhoneNumber" class="control-label"></label>
-        <input asp-for="WorkPhoneNumber" class="form-control" />
-        <span asp-validation-for="WorkPhoneNumber" class="text-danger"></span>
-    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PersonalPhoneNumber" class="control-label"></label>
+                        <input asp-for="PersonalPhoneNumber" class="form-control" />
+                        <span asp-validation-for="PersonalPhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <input type="hidden" asp-for="UserId" />
+        <!-- Salary Details Section -->
+        <div class="card mb-4 shadow-lg">
+            <div class="card-header bg-gradient-blue text-white">
+                <h4 class="mb-0">Salary Details</h4>
+            </div>
+            <div class="card-body bg-light">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="BasicPay" class="control-label"></label>
+                        <input asp-for="BasicPay" class="form-control" type="number" step="0.01" />
+                        <span asp-validation-for="BasicPay" class="text-danger"></span>
+                    </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a asp-controller="Admin" asp-action="ViewUsers" class="btn btn-secondary">Back to List</a>
-    </div>
-</form>
+                    <div class="form-group col-md-6">
+                        <label asp-for="HRA" class="control-label"></label>
+                        <input asp-for="HRA" class="form-control" type="number" step="0.01" />
+                        <span asp-validation-for="HRA" class="text-danger"></span>
+                    </div>
+                </div>
 
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="ConveyanceAllowance" class="control-label"></label>
+                        <input asp-for="ConveyanceAllowance" class="form-control" type="number" step="0.01" />
+                        <span asp-validation-for="ConveyanceAllowance" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="FixedMedicalAllowance" class="control-label"></label>
+                        <input asp-for="FixedMedicalAllowance" class="form-control" type="number" step="0.01" />
+                        <span asp-validation-for="FixedMedicalAllowance" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="TotalEarnings" class="control-label"></label>
+                        <input asp-for="TotalEarnings" class="form-control" type="number" step="0.01" />
+                        <span asp-validation-for="TotalEarnings" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="BankName" class="control-label"></label>
+                        <input asp-for="BankName" class="form-control" />
+                        <span asp-validation-for="BankName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="AccountHolderName" class="control-label"></label>
+                        <input asp-for="AccountHolderName" class="form-control" />
+                        <span asp-validation-for="AccountHolderName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="AccountNumber" class="control-label"></label>
+                        <input asp-for="AccountNumber" class="form-control" />
+                        <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Details Section -->
+        <div class="card mb-4 shadow-lg">
+            <div class="card-header bg-gradient-green text-white">
+                <h4 class="mb-0">Company Details</h4>
+            </div>
+            <div class="card-body bg-light">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Designation" class="control-label"></label>
+                        <input asp-for="Designation" class="form-control" />
+                        <span asp-validation-for="Designation" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="Department" class="control-label"></label>
+                        <input asp-for="Department" class="form-control" />
+                        <span asp-validation-for="Department" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control" type="date" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+
+                    
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="WorkEmail" class="control-label"></label>
+                        <input asp-for="WorkEmail" class="form-control" />
+                        <span asp-validation-for="WorkEmail" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="WorkPhoneNumber" class="control-label"></label>
+                        <input asp-for="WorkPhoneNumber" class="form-control" />
+                        <span asp-validation-for="WorkPhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary btn-lg shadow-sm">Save Changes</button>
+            <a asp-controller="Admin" asp-action="ViewUsers" class="btn btn-secondary btn-lg shadow-sm">Back to List</a>
+        </div>
+    </form>
+</div>
+    <html>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

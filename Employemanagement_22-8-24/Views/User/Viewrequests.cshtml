@@ -4,44 +4,124 @@
     ViewData["Title"] = "View Requests";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Request ID</th>
-            <th>Edit Request</th>
-            <th>Request Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var request in Model)
-        {
-            <tr>
-                <td>@request.RequestId</td>
-                <td>@request.EditRequest</td>
-                <td>
-                    @if (request.RequestDate != null)
-                    {
-                        @request.RequestDate.ToString("yyyy-MM-dd")
-
-                    }
-                    else
-                    {
-                        <span>No Date</span>
-                    }
-                </td>
-                <td>@request.isprocessed</td>
-                <td>
-                    <form asp-action="DeleteRequest" asp-route-requestId="@request.RequestId" method="post" onsubmit="return confirm('Are you sure you want to delete this request?');">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alike&family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://lh6.googleusercontent.com/proxy/P4SGZIuv2Eap_OmAFRxw01PXYA7_CrpS_o0bYPICLHyNGfsTviEzLBYD5X3-H3l33eekp3oe7-P7mpCl8i4xvAD4IKUrKu1Z2h_cPloIWbPMTwd953qq2yaichZzgogL4ptHWmmUkuberUSi2ic0Q3o8pjQB') no-repeat center center fixed;
+            background-size: cover;
+            color: mediumseagreen; /* Default text color */
+            font-family: "Alike", serif;
+            font-weight: 400;
+            font-style: normal;
         }
-    </tbody>
-</table>
 
-<a asp-controller="User" asp-action="AddRequest" class="btn btn-primary">Add New Request</a>
+        .container {
+            backdrop-filter: blur(10px);
+            margin-top: 70px; /* Margin to make room for the navbar */
+            padding: 20px;
+        }
+
+        .table-container {
+            /* Semi-transparent black for contrast */
+           
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .table thead th {
+            background-color: #343a40; /* Dark background for the header */
+            color:mediumseagreen; /* White text color */
+        }
+
+        .table tbody tr:nth-child(odd) {
+            /* Alternating row colors */
+           
+            color: #ffffff;
+            
+
+        }
+
+        .highlight-shadow {
+            color: white; /* Text color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow color and position */
+        }
+
+        .table tbody tr:nth-child(even) {
+             /* Alternating row colors */
+            backdrop-filter: blur(2px);
+        }
+
+        .btn-custom {
+            margin: 5px;
+        }
+
+        .btn-add {
+            background-color: #007bff; /* Primary button color */
+            color: #ffffff; /* White text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="table-container">
+            <h1 class="text-center mb-4"  style="color:indigo">@ViewData["Title"]</h1>
+
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Edit Request</th>
+                        <th>Request Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="highlight-shadow">
+                    @foreach (var request in Model)
+                    {
+                        <tr>
+                            <td>@request.RequestId</td>
+                            <td>@request.EditRequest</td>
+                            <td>
+                                @if (request.RequestDate != null)
+                                {
+                                    @request.RequestDate.ToString("yyyy-MM-dd")
+                                }
+                                else
+                                {
+                                    <span class="text-warning">No Date</span>
+                                }
+                            </td>
+                            <td>
+                               @request.isprocessed
+                            </td>
+                            <td>
+                                <form asp-action="DeleteRequest" asp-route-id="@request.RequestId" method="post" onsubmit="return confirm('Are you sure you want to delete this request?');">
+                                    <button type="submit" class="btn btn-danger btn-custom">Delete</button>
+                                </form>
+                               
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="text-center mt-4">
+                <a asp-controller="User" asp-action="AddRequest" class="btn btn-add btn-custom">Add New Request</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

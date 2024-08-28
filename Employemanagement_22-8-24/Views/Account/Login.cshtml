@@ -3,32 +3,107 @@
 @{
     ViewBag.Title = "Login";
     var returnUrl = Context.Request.Query["ReturnUrl"]; // Extract returnUrl from query string
-
 }
 
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1547628641-ec2098bb5812?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Setting the provided image as background */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+        }
 
-<form asp-action="Login" asp-controller="Account" method="post">
-    <input type="hidden" name="returnUrl" value="@returnUrl" /> <!-- Pass returnUrl to the form -->
+        .login-container {
+            margin-top: 10%;
+        }
 
-    <div class="form-group">
-        <label asp-for="UserId"></label>
-        <input asp-for="UserId" class="form-control" />
-        <span asp-validation-for="UserId" class="text-danger"></span>
+        .login-card {
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+            .login-card h2 {
+                color: #ffffff;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.2); /* Light semi-transparent background */
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+        }
+
+            .form-control::placeholder {
+                color: #cccccc;
+            }
+
+        .btn-primary {
+            background-color: #5a67d8; /* Customize button color */
+            border: none;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .form-group .text-danger {
+            color: #ffcccb;
+        }
+
+        .forgot-password {
+            color: #cccccc;
+            text-align: right;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container login-container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card login-card">
+                    <h2>User Login</h2>
+                    <form asp-action="Login" asp-controller="Account" method="post">
+                        <div class="form-group">
+                            <input type="text" asp-for="UserId" class="form-control" placeholder="Username">
+                            <span asp-validation-for="UserId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" asp-for="Password" class="form-control" placeholder="Password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <a asp-action="ForgotPassword">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control" type="password" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
-    <button type="submit" class="btn btn-primary">Login</button>
-
-    <div class="form-group mt-3">
-        <a asp-action="ForgotPassword">Forgot Password?</a>
-    </div>
-</form>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4Agj8Xr9XcFh1KZ2NTcKp3ZT7cDD4j69j7E5smDItv3EgYTAxVf" crossorigin="anonymous"></script>
+</body>
+</html>
 
 @section Scripts {
     @{

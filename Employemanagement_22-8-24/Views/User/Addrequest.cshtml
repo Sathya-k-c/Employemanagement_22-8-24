@@ -1,29 +1,99 @@
 ﻿@model Employemanagement_22_8_24.Models.Request
 
+
 @{
     ViewBag.Title = "Add Request";
+    // Retrieve the UserId from the session or from ViewData if passed by the controller
+    var userId = ViewData["UserId"] as string; // Retrieve UserId from ViewData
+
 }
 
-<h2>Add Request</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alike&family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://wallpapers.com/images/hd/hd-office-background-1920-x-1080-bcynny890vbtg364.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color:aliceblue;
+            font-family: "Alike", serif;
+            font-weight: 400;
+            font-style: normal;
+             /* Default text color */
+        }
 
-<form asp-action="AddRequest" method="post">
-    <div class="form-group">
-        <label asp-for="EditRequest" class="control-label"></label>
-        <textarea asp-for="EditRequest" class="form-control" rows="4" placeholder="Enter your request here..."></textarea>
-        <span asp-validation-for="EditRequest" class="text-danger"></span>
+        .container {
+            backdrop-filter: blur(5px);
+            margin-top: 70px; /* Margin to make room for the navbar */
+            padding: 20px;
+            font-weight: bold;
+        }
+
+        .form-container {
+             /* Semi-transparent black */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .transparent-textbox {
+            background-color: transparent;
+            border: 1px solid #ccc; /* Optional: border color */
+            color: black; /* Optional: text color */
+            box-shadow: none; /* Optional: remove box shadow */
+            font-weight: bold;
+            opacity: 1;
+        }
+
+           
+
+            /* Styling the placeholder text color */
+            .transparent-textbox::placeholder {
+                color: #000; /* Placeholder text color */
+                opacity: 1; /* Ensure placeholder is fully opaque */
+            }
+
+        .btn-custom {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2 class="text-center mb-4">@ViewBag.Title</h2>
+
+            <form asp-action="AddRequest" method="post">
+                <div class="form-group">
+                    <label asp-for="EditRequest" class="control-label"></label>
+                    <textarea asp-for="EditRequest" class="form-control transparent-textbox" rows="4" placeholder="Enter your request here..."></textarea>
+                    <span asp-validation-for="EditRequest" class="text-danger"></span>
+                </div>
+
+                <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary btn-custom">Submit Request</button>
+                </div>
+            </form>
+
+            
+        </div>
     </div>
 
-    <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit Request</button>
-    </div>
-</form>
-
-<a asp-controller="User" asp-action="UserDashboard" class="btn btn-secondary">Back to Dashboard</a>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
-}
+</body>
+</html>
