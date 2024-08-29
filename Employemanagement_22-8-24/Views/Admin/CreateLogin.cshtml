@@ -178,12 +178,23 @@
                 var query = $(this).val();
 
                 if (query.length >= 1) {
-                    $.getJSON('@Url.Action("GetUserIdSuggestions", "Admin")', { term: query }, function (data) {
-                        var suggestions = data.map(function (userId) {
-                            return '<a class="dropdown-item" href="#">' + userId + '</a>';
-                        }).join('');
+                    $.ajax({
+                        url: '@Url.Action("GetUserIdSuggestions", "Admin")',
+                        data: { term: query },
+                        dataType: 'json',
+                        success: function (data) {
+                            // Check the data received
+                            console.log(data);
 
-                        $('#userIdSuggestions').html(suggestions).show();
+                            var suggestions = data.map(function (user) {
+                                return '<a class="dropdown-item" href="#">' + user + '</a>';
+                            }).join('');
+
+                            $('#userIdSuggestions').html(suggestions).show();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching suggestions:", status, error);
+                        }
                     });
                 } else {
                     $('#userIdSuggestions').empty().hide();

@@ -203,11 +203,10 @@ namespace Employemanagement_22_8_24.Data.Services
             return $"Q{lastIdNumber + 1}";
         }
         //--------------------------------------------------
-        public List<string> GetUserIdSuggestions(string partialUserId)
+        public List<User> GetUserIdSuggestions(string partialUserId)
         {
             return _context.Users
-                            .Where(u => u.UserId.Contains(partialUserId))
-                            .Select(u => u.UserId)
+                            .Where(u => u.UserId.Contains(partialUserId)) // Filter by partial UserId
                             .ToList();
         }
     }
