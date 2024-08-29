@@ -202,6 +202,13 @@ namespace Employemanagement_22_8_24.Data.Services
             int lastIdNumber = int.Parse(lastUser.UserId.Substring(1));
             return $"Q{lastIdNumber + 1}";
         }
-
+        //--------------------------------------------------
+        public List<string> GetUserIdSuggestions(string partialUserId)
+        {
+            return _context.Users
+                            .Where(u => u.UserId.Contains(partialUserId))
+                            .Select(u => u.UserId)
+                            .ToList();
+        }
     }
 }

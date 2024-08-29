@@ -19,5 +19,7 @@ namespace Employemanagement_22_8_24.Data.Services
         Task<Request> GetRequestByIdAsync(int requestId);
 
         Task UpdateRequestAsync(Request request);
+        public List<string> GetUserIdSuggestions(string partialUserId);
+
     }
 }

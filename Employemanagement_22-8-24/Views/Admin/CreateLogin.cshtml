@@ -11,8 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alike&family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -86,7 +84,7 @@
 
 
         .navbar-custom {
-            background: linear-gradient(to right, #ff6f61, #d83a56); /* Gradient background for navbar */
+            
             color: #ffffff !important; /* Ensure navbar text is white */
             position: fixed;
             top: 0;
@@ -98,22 +96,34 @@
         .navbar-brand, .nav-link {
             color: #ffffff !important; /* Ensure navbar text is white */
         }
+
+        #userIdSuggestions {
+            position: absolute;
+            z-index: 1050; /* Ensure it stays above other content */
+            max-height: 150px;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .dropdown-item {
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg">
-    <a asp-controller="Admin" asp-action="AdminDashboard" class="navbar-brand"> Dashboard</a>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <a asp-controller="Admin" asp-action="AdminDashboard" class="navbar-brand">Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Admin" asp-action="CreateUser">Create Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-controller="Admin" asp-action="CreateLogin">Create Login </a>
+                <a class="nav-link" asp-controller="Admin" asp-action="CreateLogin">Create Login</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Admin" asp-action="ViewUsers">View Users</a>
@@ -136,9 +146,10 @@
     <div class="section-title">User Information</div>
 
     <form asp-action="CreateLogin" method="post">
-        <div class="form-group">
+        <div class="form-group position-relative">
             <label asp-for="UserId"></label>
-            <input asp-for="UserId" class="form-control" />
+            <input asp-for="UserId" id="userIdInput" class="form-control" autocomplete="off" />
+            <div id="userIdSuggestions" class="dropdown-menu"></div>
             <span asp-validation-for="UserId" class="text-danger"></span>
         </div>
 
@@ -148,12 +159,10 @@
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
-       
-
         <button type="submit" class="btn btn-primary btn-block">Create Login</button>
 
         <div class="text-center mt-4">
-            <a asp-controller="Admin" asp-action="AdminDashboard" class="btn btn-gradient-secondary btn-lg">Back to Dashboard</a>
+            <a asp-controller="Admin" asp-action="AdminDashboard" class="btn btn-primary btn-block">Back to Dashboard</a>
         </div>
     </form>
 </div>
@@ -162,4 +171,35 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#userIdInput').on('input', function () {
+                var query = $(this).val();
+
+                if (query.length >= 1) {
+                    $.getJSON('@Url.Action("GetUserIdSuggestions", "Admin")', { term: query }, function (data) {
+                        var suggestions = data.map(function (userId) {
+                            return '<a class="dropdown-item" href="#">' + userId + '</a>';
+                        }).join('');
+
+                        $('#userIdSuggestions').html(suggestions).show();
+                    });
+                } else {
+                    $('#userIdSuggestions').empty().hide();
+                }
+            });
+
+            $(document).on('click', '#userIdSuggestions .dropdown-item', function () {
+                $('#userIdInput').val($(this).text());
+                $('#userIdSuggestions').empty().hide();
+            });
+
+            $(document).click(function (e) {
+                if (!$(e.target).closest('#userIdInput, #userIdSuggestions').length) {
+                    $('#userIdSuggestions').empty().hide();
+                }
+            });
+        });
+    </script>
 }

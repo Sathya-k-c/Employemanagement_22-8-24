@@ -37,7 +37,13 @@ namespace Employemanagement_22_8_24.Controllers
             };
             return View(model);
         }
-
+        [HttpGet]
+        
+        public JsonResult GetUserIdSuggestions(string term)
+        {
+            var suggestions = _adminService.GetUserIdSuggestions(term);
+            return Json(suggestions);
+        }
         [HttpPost]
         public async Task<IActionResult> CreateUser(User model)
         {
