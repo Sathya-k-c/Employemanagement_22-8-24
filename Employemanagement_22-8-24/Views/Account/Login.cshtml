@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Login";
-    var returnUrl = Context.Request.Query["ReturnUrl"]; // Extract returnUrl from query string
+    var returnUrl = Context.Request.Query["ReturnUrl"];
 }
 
 <!DOCTYPE html>
@@ -11,12 +11,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <style>
         body {
-            background-image: url('https://images.unsplash.com/photo-1547628641-ec2098bb5812?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Setting the provided image as background */
+            background-image: url('https://images.unsplash.com/photo-1547628641-ec2098bb5812?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -29,7 +27,7 @@
         }
 
         .login-card {
-            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.7);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -42,7 +40,7 @@
             }
 
         .form-control {
-            background-color: rgba(255, 255, 255, 0.2); /* Light semi-transparent background */
+            background-color: rgba(255, 255, 255, 0.2);
             color: #ffffff;
             border: none;
             border-radius: 5px;
@@ -53,7 +51,7 @@
             }
 
         .btn-primary {
-            background-color: #5a67d8; /* Customize button color */
+            background-color: #5a67d8;
             border: none;
             width: 100%;
             margin-top: 10px;
@@ -78,6 +76,8 @@
             <div class="col-md-4">
                 <div class="card login-card">
                     <h2>User Login</h2>
+                    <!-- Display error summary -->
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <form asp-action="Login" asp-controller="Account" method="post">
                         <div class="form-group">
                             <input type="text" asp-for="UserId" class="form-control" placeholder="Username">
@@ -88,7 +88,7 @@
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <a asp-action="ForgotPassword">Forgot Password?</a>
+                            <a asp-action="ForgotPassword" class="forgot-password">Forgot Password?</a>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
@@ -96,17 +96,8 @@
             </div>
         </div>
     </div>
-
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4Agj8Xr9XcFh1KZ2NTcKp3ZT7cDD4j69j7E5smDItv3EgYTAxVf" crossorigin="anonymous"></script>
 </body>
 </html>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

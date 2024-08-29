@@ -20,7 +20,6 @@ namespace Employemanagement_22_8_24.Data.Services
 
 
         public async Task ForgotPasswordAsync(string userId)
-
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == userId);
             SendOtpAsync(userId, user.Email);

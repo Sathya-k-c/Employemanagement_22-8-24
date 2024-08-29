@@ -20,12 +20,20 @@ namespace Employemanagement_22_8_24.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public async Task<ActionResult> Login(Login model)
         {
             string returnUrl = Request.Query["ReturnUrl"]; // Ensure returnUrl is declared here
 
-            if (ModelState.IsValid)
+            if (true)
             {
+                var user =  _accountService.GetUserByIdAsync(model.UserId);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "INVALID USER ID");
+                    return View(model);
+                }
+
                 if (await _accountService.ValidateLoginAsync(model.UserId, model.Password))
                 {
                     HttpContext.Session.SetString("UserId", model.UserId);
@@ -40,17 +48,16 @@ namespace Employemanagement_22_8_24.Controllers
                     {
                         var localUrl = Url.Action("Admindashboard", "Admin");
                         return LocalRedirect(returnUrl ?? localUrl);
-
-
-
                     }
                     else
                     {
                         return RedirectToAction("UserDashboard", "User", new { userId = model.UserId });
                     }
                 }
-
-                ModelState.AddModelError("", "Invalid User ID or Password");
+                else
+                {
+                    ModelState.AddModelError("", "Wrong password");
+                }
             }
             return View(model);
         }
@@ -82,9 +89,7 @@ namespace Employemanagement_22_8_24.Controllers
         [HttpPost]
         public async Task<ActionResult> ForgotPassword(ForgotPassword model)
         {
-
-            
-            
+     
                  await _accountService.ForgotPasswordAsync(model.UserId);
                 return RedirectToAction("ValidateOtp", new { userId = model.UserId });
             

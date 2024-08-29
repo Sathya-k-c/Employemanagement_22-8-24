@@ -1,4 +1,6 @@
-﻿namespace Employemanagement_22_8_24.Data.Services
+﻿using Employemanagement_22_8_24.Models;
+
+namespace Employemanagement_22_8_24.Data.Services
 {
     public interface IACCOUNTSERVICE
     {
@@ -10,5 +12,7 @@
         Task<bool> ValidateOtpAsync(string userId, string otp);
         Task<string> GetUserRoleAsync(string userId);
         Task ForgotPasswordAsync(string userId);
+
+        User GetUserByIdAsync(string userId);
     }
 }
