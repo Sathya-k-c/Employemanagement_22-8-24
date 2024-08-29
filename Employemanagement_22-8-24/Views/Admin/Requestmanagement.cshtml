@@ -12,14 +12,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alike&family=Baskervville+SC&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         body {
             background: url('https://previews.123rf.com/images/pitinan/pitinan2302/pitinan230201189/198173868-empty-modern-office-background-in-city-center-workspace-interior-design-clean-and-bright-office.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: black; /* Darker text color for readability on white card */
+            color: black;
             font-family: "Alike", serif;
             font-weight: 400;
             font-style: normal;
@@ -30,7 +28,7 @@
             margin-top: 30px;
             max-width: 80%;
             padding: 20px;
-            background-color: #ffffff; /* Light background for main content */
+            background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             background-color: transparent;
@@ -59,7 +57,7 @@
         }
 
         .table {
-            background-color: #fff; /* White background for the table */
+            background-color: #fff;
             border-radius: 5px;
             overflow: hidden;
             margin-top: 20px;
@@ -67,7 +65,7 @@
         }
 
             .table th {
-                background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient header */
+                background: linear-gradient(to right, #6a11cb, #2575fc);
                 color: #fff;
             }
 
@@ -118,35 +116,71 @@
             }
 
         .navbar {
-            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black navbar */
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
-
-
         .navbar-custom {
-            background: linear-gradient(to right, #ff6f61, #d83a56); /* Gradient background for navbar */
-            color: #ffffff !important; /* Ensure navbar text is white */
+            background: linear-gradient(to right, #ff6f61, #d83a56);
+            color: #ffffff !important;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000; /* Ensure navbar stays on top */
+            z-index: 1000;
         }
 
         .navbar-brand, .nav-link {
-            color: #ffffff !important; /* Ensure navbar text is white */
+            color: #ffffff !important;
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Overlay Styles */
+        .overlay {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            font-size: 1.5em;
+            color: #000;
+            border: none;
+            background: none;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 20px;
         }
     </style>
 </head>
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg navbar-custom">
     <a asp-controller="Admin" asp-action="AdminDashboard" class="navbar-brand"> Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Admin" asp-action="CreateUser">Create Users</a>
             </li>
@@ -247,19 +281,39 @@
     <a asp-controller="Admin" asp-action="AdminDashboard" class="btn btn-secondary">Back to Dashboard</a>
 </div>
 
+<!-- Popup and Overlay -->
+<div id="popup-overlay" class="overlay"></div>
+
+<div id="popup" class="popup">
+    <button type="button" class="close" onclick="closePopup()">&times;</button>
+    <div id="popup-content">
+        <!-- Popup content will be loaded dynamically -->
+    </div>
+</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
         function showRemarkForm(formId) {
-            // Hide all remark forms
-            document.querySelectorAll('.remarks-form').forEach(form => {
-                form.classList.remove('active');
-            });
+            // Load the form content into the popup
+            const overlay = document.getElementById('popup-overlay');
+            const popup = document.getElementById('popup');
+            const popupContent = document.getElementById('popup-content');
 
-            // Show the selected form
-            document.getElementById(formId).classList.add('active');
+            // Get the form content
+            popupContent.innerHTML = document.getElementById(formId).innerHTML;
+
+            // Show the popup and overlay
+            overlay.style.display = 'block';
+            popup.style.display = 'block';
+        }
+
+        function closePopup() {
+            // Hide the popup and overlay
+            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
         }
     </script>
 }
