@@ -87,14 +87,35 @@ namespace Employemanagement_22_8_24.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ForgotPassword(ForgotPassword model)
+        public async Task<JsonResult> ForgotPassword(ForgotPassword model)
         {
-     
-                 await _accountService.ForgotPasswordAsync(model.UserId);
-                return RedirectToAction("ValidateOtp", new { userId = model.UserId });
-            
-            return View(model);
+            if (true)
+            {
+                try
+                {
+                    var result =  _accountService.ForgotPasswordAsync(model.UserId);
+
+                    if (true) // Assuming result is true when userId is valid
+                    {
+                        var redirectUrl = Url.Action("ValidateOtp", new { userId = model.UserId });
+                        return Json(new { success = true, redirectUrl = redirectUrl });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = "Invalid User ID." });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception
+                    return Json(new { success = false, message = "An error occurred while processing your request." });
+                }
+            }
+
+            // If model validation fails
+            return Json(new { success = false, message = "Invalid data submitted." });
         }
+
 
         [HttpGet]
         public ActionResult ValidateOtp(string userId)
