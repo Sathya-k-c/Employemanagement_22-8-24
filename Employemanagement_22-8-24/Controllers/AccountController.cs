@@ -77,7 +77,7 @@ namespace Employemanagement_22_8_24.Controllers
                 _accountService.UpdatePasswordAsync(model.UserId, model.ConfirmPassword);
                 return RedirectToAction("Login");
             }
-            return View(model);
+            
         }
 
         [HttpGet]
@@ -112,8 +112,7 @@ namespace Employemanagement_22_8_24.Controllers
                 }
             }
 
-            // If model validation fails
-            return Json(new { success = false, message = "Invalid data submitted." });
+           
         }
 
 

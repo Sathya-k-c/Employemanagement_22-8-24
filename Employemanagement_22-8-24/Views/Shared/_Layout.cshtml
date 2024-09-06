@@ -20,6 +20,23 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+   
+
+    <script>
+        // This script will force the browser to not cache and to reload the page when navigating back
+        window.onload = function () {
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
+            window.onunload = function () { }; // Support for older browsers
+        };
+
+        // Clear the cache when the page is unloaded
+        window.addEventListener('unload', function () {
+            window.history.replaceState(null, null, window.location.href);
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
